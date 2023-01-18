@@ -61,6 +61,49 @@
         />
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Adress"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="50dp"
+        />
+    <EditText
+        android:id="@+id/et_address"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/custom_et"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Enter your address"
+        android:paddingStart="12dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Floor/Department"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="50dp"
+        />
+    <EditText
+        android:id="@+id/et_floor_dpto"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/custom_et"
+        android:ems="10"
+        android:inputType="number"
+        android:hint="Floor/dept"
+        android:paddingStart="12dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="180dp"
+        />
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Email"

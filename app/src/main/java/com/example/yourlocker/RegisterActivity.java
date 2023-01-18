@@ -31,24 +31,26 @@ import java.util.concurrent.ForkJoinPool;
 public class RegisterActivity extends AppCompatActivity {
 
     ImageView iv_back;
-    TextView et_name,et_email, et_password, et_password_confirm;
+    TextView et_name,et_email, et_password, et_password_confirm, et_address, et_floor_dpto;
     Button bt_singin;
     FirebaseAuth mAuth;
-    FirebaseFirestore mFirestore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
         mAuth = FirebaseAuth.getInstance();
-        mFirestore = FirebaseFirestore.getInstance();
 
         iv_back = findViewById(R.id.iv_back);
         et_name = findViewById(R.id.et_name);
         et_email = findViewById(R.id.et_email);
         et_password = findViewById(R.id.et_password);
         et_password_confirm = findViewById(R.id.et_password_confirm);
+        et_address = findViewById(R.id.et_address);
+        et_floor_dpto = findViewById(R.id.et_floor_dpto);
         bt_singin = findViewById(R.id.bt_singin);
+
 
 
         bt_singin.setOnClickListener(new View.OnClickListener() {
@@ -58,11 +60,14 @@ public class RegisterActivity extends AppCompatActivity {
                 String emailUser = et_email.getText().toString().trim();
                 String passUser = et_password.getText().toString().trim();
                 String confirmPassUser = et_password_confirm.getText().toString().trim();
+                String addressUser = et_address.getText().toString().trim();
+                String floorDptoUser = et_floor_dpto.getText().toString().trim();
 
                 if(nameUser.isEmpty() && emailUser.isEmpty() && passUser.isEmpty() && confirmPassUser.isEmpty()){
                     Toast.makeText(RegisterActivity.this, "Complete fields",Toast.LENGTH_SHORT).show();
                 }else if (passUser.equals(confirmPassUser)){
-                    registerUser(nameUser,emailUser, passUser);
+                    //funcion para registro
+                    registerUser(nameUser,emailUser, passUser, addressUser);
                 }
 
             }
@@ -77,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void registerUser(String nameUser, String emailUser, String passUser) {
+    private void registerUser(String nameUser, String emailUser, String passUser, String addressUser ) {
         mAuth.createUserWithEmailAndPassword(emailUser, passUser).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -85,7 +90,7 @@ public class RegisterActivity extends AppCompatActivity {
                     FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
                     //Ingresar datos en firebase realtime database
-                    ReadWriteUserDetails writeUserDetails = new ReadWriteUserDetails(nameUser, emailUser, passUser);
+                    ReadWriteUserDetails writeUserDetails = new ReadWriteUserDetails(nameUser, emailUser, passUser, addressUser);
 
                     //Extrayendo referencia de usuario de la base de datos "Usuarios registrados"
                     DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Usuarios registrados");
