@@ -43,14 +43,25 @@
         android:outlineAmbientShadowColor="@color/black"
         >
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+
+            />
 
 
     </androidx.cardview.widget.CardView>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:id="@+id/bt_add"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_gravity="center"
+        android:background="@drawable/boton_redondo"
+        android:hint="Add"
+        android:textColorHint="@color/white"
         />
 
 

@@ -62,12 +62,16 @@ public class RegisterActivity extends AppCompatActivity {
                 String confirmPassUser = et_password_confirm.getText().toString().trim();
                 String addressUser = et_address.getText().toString().trim();
                 String floorDptoUser = et_floor_dpto.getText().toString().trim();
+                /**
+                 * PREGUNTALE A JUANI
+                 */
+                String espacioDispositivos = "0";
 
                 if(nameUser.isEmpty() && emailUser.isEmpty() && passUser.isEmpty() && confirmPassUser.isEmpty()){
                     Toast.makeText(RegisterActivity.this, "Complete fields",Toast.LENGTH_SHORT).show();
                 }else if (passUser.equals(confirmPassUser)){
                     //funcion para registro
-                    registerUser(nameUser,emailUser, passUser, addressUser);
+                    registerUser(nameUser,emailUser, passUser, addressUser, espacioDispositivos);
                 }
 
             }
@@ -82,7 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void registerUser(String nameUser, String emailUser, String passUser, String addressUser ) {
+    private void registerUser(String nameUser, String emailUser, String passUser, String addressUser, String espacioDispositivos ) {
         mAuth.createUserWithEmailAndPassword(emailUser, passUser).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -90,7 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
                     FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
                     //Ingresar datos en firebase realtime database
-                    ReadWriteUserDetails writeUserDetails = new ReadWriteUserDetails(nameUser, emailUser, passUser, addressUser);
+                    ReadWriteUserDetails writeUserDetails = new ReadWriteUserDetails(nameUser, emailUser, passUser, addressUser, espacioDispositivos);
 
                     //Extrayendo referencia de usuario de la base de datos "Usuarios registrados"
                     DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Usuarios registrados");
