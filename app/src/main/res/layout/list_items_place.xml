@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="215dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:xlms="http://schemas.android.com/tools"
     android:orientation="vertical">
@@ -13,10 +13,12 @@
         android:backgroundTint="#FF9800"
         app:cardCornerRadius="30dp"
         app:cardUseCompatPadding="false"
-        android:layout_margin="7dp"
+        android:layout_marginTop="11dp"
         android:outlineAmbientShadowColor="@color/black"
         android:outlineSpotShadowColor="@color/black"
-        app:cardElevation="10dp">
+        app:cardElevation="10dp"
+        android:layout_gravity="center"
+        >
 
         <TextView
             android:id="@+id/tv_place"

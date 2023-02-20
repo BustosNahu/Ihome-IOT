@@ -1,68 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity"
     android:orientation="vertical"
-    >
+    tools:context=".HomeActivity"
+    android:id="@+id/layout">
 
-    <TextView
-        android:id="@+id/iv_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:text="name here"
-        android:textSize="22sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:layout_marginTop="40dp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:text="Control your Ihome dispositives"
-        android:textSize="12sp"
-        android:textColor="#74000000"
-        />
 
-    <androidx.cardview.widget.CardView
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
-        app:cardCornerRadius="50dp"
-        app:cardMaxElevation="50dp"
-        app:cardBackgroundColor="@color/white"
-        android:layout_gravity="center_horizontal"
-        android:outlineSpotShadowColor="@color/black"
-        android:outlineAmbientShadowColor="@color/black"
-        >
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="60dp"
+        app:navGraph="@navigation/nav_graph">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
+    </androidx.fragment.app.FragmentContainerView>
 
-            />
-
-
-    </androidx.cardview.widget.CardView>
-
-    <Button
-        android:id="@+id/bt_add"
-        android:layout_width="60dp"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavView"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_gravity="center"
-        android:background="@drawable/boton_redondo"
-        android:hint="Add"
-        android:textColorHint="@color/white"
-        />
+        android:layout_below="@+id/fragmentContainerView"
+        android:background="#FF9800"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/activity_main_bottom_nav"
+        tools:layout_editor_absoluteX="0dp" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

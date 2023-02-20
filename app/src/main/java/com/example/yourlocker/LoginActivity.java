@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,6 +35,11 @@ public class LoginActivity extends AppCompatActivity {
         et_email = findViewById(R.id.et_email);
         et_password = findViewById(R.id.et_password);
         bt_log_in = findViewById(R.id.bt_log_in);
+
+        et_email.setText("nbustosalexander@gmail.com");
+        et_password.setText("john123");
+
+
 
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +77,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (task.isSuccessful()){
-                    finish();
                     startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                     Toast.makeText(LoginActivity.this,"Welcome", Toast.LENGTH_SHORT).show();
 
@@ -81,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this,"Error", Toast.LENGTH_SHORT).show();
 
                 }
-
+                finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

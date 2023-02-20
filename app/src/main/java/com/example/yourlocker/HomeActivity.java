@@ -1,100 +1,80 @@
 package com.example.yourlocker;
 
 import androidx.annotation.NonNull;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.yourlocker.Adapter.EspacioAdapter;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.example.yourlocker.Fragments.AccountFragment;
+import com.example.yourlocker.Fragments.FavouriteFragment;
+import com.example.yourlocker.Fragments.HomeFragment;
+import com.example.yourlocker.databinding.ActivityHomeBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
-import java.util.ArrayList;
+public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-public class HomeActivity extends AppCompatActivity implements EspacioAdapter.ItemClicked {
 
-    TextView iv_name;
-    String uid;
-    FirebaseAuth mAuth;
-    RecyclerView recyclerView;
-    RecyclerView.Adapter myAdapter;
-    RecyclerView.LayoutManager layoutManager;
-    Button bt_add;
+    Menu menu;
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
 
-    ArrayList<Espacio> place;
+
+
+    BottomNavigationView bottomNavigationView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        iv_name = findViewById(R.id.iv_name);
-        mAuth = FirebaseAuth.getInstance();
-        uid = mAuth.getCurrentUser().getUid();
-        bt_add = findViewById(R.id.bt_add);
+        NavHostFragment navHostFragment = (NavHostFragment)
+                getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
 
-        recyclerView = findViewById(R.id.list);
-        recyclerView.setHasFixedSize(true);
-
-        //layoutManager = new LinearLayoutManager(this);
-        //layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        layoutManager = new GridLayoutManager(this,2, GridLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(layoutManager);
-
-        place = new ArrayList<Espacio>();
-        place.add(new Espacio("LivingRoom"));
-        place.add(new Espacio("BedRoom"));
-        place.add(new Espacio("Garage"));
-        place.add(new Espacio("UpStairs"));
+        bottomNavigationView = findViewById(R.id.bottomNavView);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        bottomNavigationView.setSelectedItemId(R.id.navHome);
 
 
-        myAdapter = new EspacioAdapter(this, place);
+    }/////////////////////////////////////////////////////////////////////////////////FIN DEL ONCREATE/////////////////////////////////////////////////////////////////////////////////////
 
-        recyclerView.setAdapter(myAdapter);
+    HomeFragment homeFragment = new HomeFragment();
+    FavouriteFragment favouriteFragment = new FavouriteFragment();
+    AccountFragment accountFragment = new AccountFragment();
 
-        bt_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                place.add(new Espacio("BedRoom"));
-                myAdapter.notifyDataSetChanged();
-            }
-        });
-
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        ref.child("Usuarios registrados").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String name = snapshot.child(uid).child("nameUser").getValue().toString();
-                iv_name.setText("Welcome to Ihome" + " " + name);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
-
-    }/////////////////////////FIN DEL ONCREATE/////////////////////////////
-
-    /**
-     * FUNCION para identificar que item es el que se esta clickeando
-     * @param index
-     */
     @Override
-    public void onItemClick(int index) {
-        Toast.makeText(this, "Lugar" + " " + place.get(index).getLugar(), Toast.LENGTH_SHORT).show();
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.navHome:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, homeFragment).commit();
+                return true;
+
+            case R.id.navAccount:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, accountFragment).commit();
+                return true;
+
+            case R.id.navFavourite:
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, favouriteFragment).commit();
+                return true;
+
+
+        }
+        return false;
     }
 }

@@ -7,14 +7,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class AuthActivity extends AppCompatActivity {
+import com.example.yourlocker.LoginActivity;
+import com.example.yourlocker.R;
+import com.example.yourlocker.RegisterActivity;
+
+public class WelcomeActivity extends AppCompatActivity {
 
     Button btn_login_screen, btn_singin_screen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_auth);
+        setContentView(R.layout.activity_welcome);
 
         btn_login_screen = findViewById(R.id.btn_login_screen);
         btn_singin_screen = findViewById(R.id.btn_singin_screen);
@@ -22,7 +26,7 @@ public class AuthActivity extends AppCompatActivity {
         btn_login_screen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),LoginActivity.class);
+                Intent intent = new Intent(v.getContext(), LoginActivity.class);
                 startActivity(intent);
             }
         });
@@ -30,7 +34,7 @@ public class AuthActivity extends AppCompatActivity {
         btn_singin_screen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(v.getContext(),RegisterActivity.class);
+                Intent i = new Intent(v.getContext(), RegisterActivity.class);
                 startActivity(i);
             }
         });

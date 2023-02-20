@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WelcomeActivity"
+    android:orientation="vertical"
+    android:background="#FF9800">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ihome"
+                    android:gravity="center"
+                    android:textSize="96sp"
+                    android:fontFamily="@font/ihome"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="150dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Welcome to Ihome"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:paddingStart="80dp"
+                    android:textSize="20sp"
+                    android:layout_marginTop="25dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Smart living ecosystem"
+                    android:paddingStart="80dp"
+                    android:layout_marginTop="7dp"
+                    />
+
+                <Button
+                    android:id="@+id/btn_login_screen"
+                    android:layout_width="220dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="100dp"
+                    android:background="@drawable/button_redondo"
+                    android:text="Log in"
+                    android:textColor="#FF9800"
+                    android:fontFamily="@font/robotomedium"
+                    />
+
+                <Button
+                    android:id="@+id/btn_singin_screen"
+                    android:layout_width="220dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="@drawable/button_redondo_border"
+                    android:text="Sing in"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/robotomedium"
+                    />
+
+                </LinearLayout>
+
+
+
+
+</ScrollView>

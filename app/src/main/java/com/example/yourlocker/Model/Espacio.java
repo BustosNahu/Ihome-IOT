@@ -1,4 +1,4 @@
-package com.example.yourlocker;
+package com.example.yourlocker.Model;
 
 public class Espacio {
 

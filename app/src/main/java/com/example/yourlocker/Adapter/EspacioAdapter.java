@@ -1,7 +1,6 @@
 package com.example.yourlocker.Adapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.yourlocker.Espacio;
+import com.example.yourlocker.Model.Espacio;
 import com.example.yourlocker.R;
 
 import java.util.ArrayList;
@@ -35,12 +34,15 @@ public class EspacioAdapter extends RecyclerView.Adapter<EspacioAdapter.ViewHold
 
         ImageView iv_home;
         TextView tv_place, tv_explain;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tv_place = itemView.findViewById(R.id.tv_place);
             tv_explain = itemView.findViewById(R.id.tv_explain);
             iv_home = itemView.findViewById(R.id.iv_home);
+
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
