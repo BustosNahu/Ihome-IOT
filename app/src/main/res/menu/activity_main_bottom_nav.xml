@@ -3,20 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
     <group android:checkableBehavior="single">
+
         <item
-            android:id="@+id/navHome"
+            android:id="@+id/homeFragment"
             android:icon="@drawable/ic_home"
-            android:title="@string/menu_home"
             android:checkable="true"/>
         <item
-            android:id="@+id/navFavourite"
+            android:id="@+id/favouriteFragment"
             android:icon="@drawable/ic_baseline_favorite_24"
-            android:title="@string/menu_favourite"
             android:checkable="true"/>
         <item
-            android:id="@+id/navAccount"
+            android:id="@+id/accountFragment"
             android:icon="@drawable/ic_account"
-            android:title="@string/menu_account"
             android:checkable="true"/>
     </group>
 

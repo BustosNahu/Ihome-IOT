@@ -9,8 +9,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -25,14 +27,13 @@ import com.example.yourlocker.databinding.ActivityHomeBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
-public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
-
+public class HomeActivity extends AppCompatActivity {
+//implements BottomNavigationView.OnNavigationItemSelectedListener
 
     Menu menu;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
-
-
+    NavController navController;
 
     BottomNavigationView bottomNavigationView;
 
@@ -42,39 +43,10 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        NavHostFragment navHostFragment = (NavHostFragment)
-                getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
-
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment_container);
         bottomNavigationView = findViewById(R.id.bottomNavView);
-        bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        bottomNavigationView.setSelectedItemId(R.id.navHome);
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
 
     }/////////////////////////////////////////////////////////////////////////////////FIN DEL ONCREATE/////////////////////////////////////////////////////////////////////////////////////
-
-    HomeFragment homeFragment = new HomeFragment();
-    FavouriteFragment favouriteFragment = new FavouriteFragment();
-    AccountFragment accountFragment = new AccountFragment();
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-        switch (item.getItemId()){
-            case R.id.navHome:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, homeFragment).commit();
-                return true;
-
-            case R.id.navAccount:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, accountFragment).commit();
-                return true;
-
-            case R.id.navFavourite:
-
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, favouriteFragment).commit();
-                return true;
-
-
-        }
-        return false;
-    }
 }

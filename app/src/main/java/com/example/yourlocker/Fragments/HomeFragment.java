@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,8 +34,7 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment implements EspacioAdapter.ItemClicked {
 
 
-
-
+    View view;
     Menu menu;
 
     TextView tv_name;
@@ -47,27 +47,49 @@ public class HomeFragment extends Fragment implements EspacioAdapter.ItemClicked
     ArrayList<Espacio> place;
 
 
+    private HomeFragment binding;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_home, container, false);
+        view = inflater.inflate(R.layout.fragment_home, container, false);
 
 
+        NavHostFragment navHostFragment =
+                (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_container);
+        NavController navController = navHostFragment.getNavController();
+
+        mAuth = FirebaseAuth.getInstance();
+        uid = mAuth.getCurrentUser().getUid();
+        tv_name = view.findViewById(R.id.tv_name);
+        bt_add = (Button) view.findViewById(R.id.bt_add);
+
+        //boton de añadir dispositivo
+        bt_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(getActivity(), "FUNCIONA LA PUTA MADRRE", Toast.LENGTH_SHORT).show();
+                navController.navigate(R.id.accountFragment);
+            }
+        });
 
 
+        ///////////////////////////////Tomar nombre de la DB y escribirlo en pantalla///////////////////////////////////
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        ref.child("Usuarios registrados").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String name = snapshot.child(uid).child("nameUser").getValue().toString();
+                tv_name.setText("Welcome" + " " + name);
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-
-
-//        bt_add.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                NavController navController = Navigation.   findNavController(v);
-//                navController.navigate(R.id.accountFragment);
-//            }
-//        });
+            }
+        });
 
 //        recyclerView = v.findViewById(R.id.list);
 //        recyclerView.setHasFixedSize(true);
@@ -88,8 +110,8 @@ public class HomeFragment extends Fragment implements EspacioAdapter.ItemClicked
 //
 //        myAdapter = new EspacioAdapter(requireContext(), place);
 //        recyclerView.setAdapter(myAdapter);
-
-
+//
+//
 //        bt_add.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -100,45 +122,13 @@ public class HomeFragment extends Fragment implements EspacioAdapter.ItemClicked
 //        });
 
 
-
-
-        return v;
+        return view;
     }////////////////////////////////////////////////////////////////////////////////FIN DEL ONCREATEVIEW//////////////////////////////////////////////////////////////////////////////
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        mAuth = FirebaseAuth.getInstance();
-        uid = mAuth.getCurrentUser().getUid();
-        tv_name = view.findViewById(R.id.tv_name);
-
-
-
-
-
-
-
-        ///////////////////////////////Tomar nombre de la DB y escribirlo en pantalla///////////////////////////////////
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        ref.child("Usuarios registrados").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String name = snapshot.child(uid).child("nameUser").getValue().toString();
-                tv_name.setText("Welcome" + " " + name);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
-    }
 
     /**
      * FUNCION para identificar que item del RECYCLER VIEW se esta clickeando
+     *
      * @param index
      */
     @Override

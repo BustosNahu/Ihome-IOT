@@ -62,27 +62,27 @@
 
             </LinearLayout>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="0dp"
-                android:outlineAmbientShadowColor="@color/black"
-                android:outlineSpotShadowColor="@color/black"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="50dp"
-                app:cardMaxElevation="50dp">
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_gravity="center_horizontal"-->
+<!--                android:layout_marginLeft="0dp"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:layout_marginRight="0dp"-->
+<!--                android:outlineAmbientShadowColor="@color/black"-->
+<!--                android:outlineSpotShadowColor="@color/black"-->
+<!--                app:cardBackgroundColor="@color/white"-->
+<!--                app:cardCornerRadius="50dp"-->
+<!--                app:cardMaxElevation="50dp">-->
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/list"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
+<!--                <androidx.recyclerview.widget.RecyclerView-->
+<!--                    android:id="@+id/list"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_gravity="center"-->
 
-                    />
-            </androidx.cardview.widget.CardView>
+<!--                    />-->
+<!--            </androidx.cardview.widget.CardView>-->
 
         </LinearLayout>
 
