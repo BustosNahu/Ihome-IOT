@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         bt_log_in = findViewById(R.id.bt_log_in);
 
         et_email.setText("nbustosalexander@gmail.com");
-        et_password.setText("john123");
+        et_password.setText("123456");
 
 
 
@@ -78,7 +78,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (task.isSuccessful()){
                     startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                    Toast.makeText(LoginActivity.this,"Welcome", Toast.LENGTH_SHORT).show();
 
                 }else{
                     Toast.makeText(LoginActivity.this,"Error", Toast.LENGTH_SHORT).show();

@@ -99,6 +99,7 @@
         android:layout_marginRight="50dp"
         android:layout_marginLeft="50dp"
         android:text="Log in"
+        android:textAllCaps="false"
         android:textColor="@color/white"
         android:fontFamily="@font/robotomedium"
         android:background="@drawable/button_redondo_bground"

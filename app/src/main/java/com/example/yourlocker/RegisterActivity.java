@@ -1,5 +1,7 @@
 package com.example.yourlocker;
 
+import static com.example.yourlocker.Utils.Utils.USER_PATH;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.yourlocker.Model.ReadWriteUserDetails;
+import com.example.yourlocker.Model.UserDto;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -23,7 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class RegisterActivity extends AppCompatActivity {
 
     ImageView iv_back;
-    TextView et_name,et_email, et_password, et_password_confirm, et_address, et_floor_dpto;
+    TextView et_name,et_email, et_password, et_password_confirm, et_address,et_NumberAdress, et_floor_dpto;
     Button bt_singin;
     FirebaseAuth mAuth;
 
@@ -40,6 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
         et_password = findViewById(R.id.et_password);
         et_password_confirm = findViewById(R.id.et_password_confirm);
         et_address = findViewById(R.id.et_address);
+        et_NumberAdress = findViewById(R.id.et_NumberAdress);
         et_floor_dpto = findViewById(R.id.et_floor_dpto);
         bt_singin = findViewById(R.id.bt_singin);
 
@@ -53,7 +56,9 @@ public class RegisterActivity extends AppCompatActivity {
                 String passUser = et_password.getText().toString().trim();
                 String confirmPassUser = et_password_confirm.getText().toString().trim();
                 String addressUser = et_address.getText().toString().trim();
+                String numberAdressUser = et_NumberAdress.getText().toString().trim();
                 String floorDptoUser = et_floor_dpto.getText().toString().trim();
+                String profileUrl = "";
                 /**
                  * PREGUNTALE A JUANI
                  */
@@ -63,7 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Complete fields",Toast.LENGTH_SHORT).show();
                 }else if (passUser.equals(confirmPassUser)){
                     //funcion para registro
-                    registerUser(nameUser,emailUser, passUser, addressUser, espacioDispositivos);
+                    registerUser(nameUser,emailUser, passUser, addressUser, numberAdressUser, espacioDispositivos, profileUrl);
                 }
 
             }
@@ -78,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void registerUser(String nameUser, String emailUser, String passUser, String addressUser, String espacioDispositivos ) {
+    private void registerUser(String nameUser, String emailUser, String passUser, String addressUser, String numberAdressUser,  String espacioDispositivos, String profileUrl ) {
         mAuth.createUserWithEmailAndPassword(emailUser, passUser).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -86,10 +91,10 @@ public class RegisterActivity extends AppCompatActivity {
                     FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
                     //Ingresar datos en firebase realtime database
-                    ReadWriteUserDetails writeUserDetails = new ReadWriteUserDetails(nameUser, emailUser, passUser, addressUser, espacioDispositivos);
+                    UserDto writeUserDetails = new UserDto(nameUser, emailUser, passUser, addressUser, numberAdressUser, espacioDispositivos, profileUrl);
 
                     //Extrayendo referencia de usuario de la base de datos "Usuarios registrados"
-                    DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Usuarios registrados");
+                    DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference(USER_PATH);
 
                     referenceProfile.child(firebaseUser.getUid()).setValue(writeUserDetails).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override

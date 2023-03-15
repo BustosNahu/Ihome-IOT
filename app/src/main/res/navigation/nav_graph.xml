@@ -49,6 +49,16 @@
         <action
             android:id="@+id/action_accountFragment_to_editProfileFragment2"
             app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_termsAndConditionsFragment"
+            app:destination="@id/termsAndConditionsFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_accountFragment_to_editProfileActivity"
+            app:destination="@id/editProfileActivity" />
     </fragment>
     <fragment
         android:id="@+id/newRoomFragment"
@@ -64,4 +74,17 @@
             android:id="@+id/action_editProfileFragment2_to_accountFragment"
             app:destination="@id/accountFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/termsAndConditionsFragment"
+        android:name="com.example.yourlocker.Fragments.TermsAndConditionsFragment"
+        android:label="fragment_terms_and_conditions"
+        tools:layout="@layout/fragment_terms_and_conditions" >
+        <action
+            android:id="@+id/action_termsAndConditionsFragment_to_accountFragment"
+            app:destination="@id/accountFragment" />
+    </fragment>
+    <activity
+        android:id="@+id/editProfileActivity"
+        android:name="com.example.yourlocker.EditProfileActivity"
+        android:label="EditProfileActivity" />
 </navigation>

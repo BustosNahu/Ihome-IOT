@@ -50,6 +50,9 @@
                     android:layout_marginTop="100dp"
                     android:background="@drawable/button_redondo"
                     android:text="Log in"
+                    android:textAllCaps="false"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
                     android:textColor="#FF9800"
                     android:fontFamily="@font/robotomedium"
                     />
@@ -63,6 +66,9 @@
                     android:layout_marginBottom="30dp"
                     android:background="@drawable/button_redondo_border"
                     android:text="Sing in"
+                    android:textAllCaps="false"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
                     android:textColor="@color/white"
                     android:fontFamily="@font/robotomedium"
                     />

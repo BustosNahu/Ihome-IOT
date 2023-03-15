@@ -1,5 +1,7 @@
 package com.example.yourlocker.Fragments;
 
+import static com.example.yourlocker.Utils.Utils.USER_PATH;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -78,7 +80,7 @@ public class HomeFragment extends Fragment implements EspacioAdapter.ItemClicked
 
         ///////////////////////////////Tomar nombre de la DB y escribirlo en pantalla///////////////////////////////////
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        ref.child("Usuarios registrados").addValueEventListener(new ValueEventListener() {
+        ref.child(USER_PATH).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String name = snapshot.child(uid).child("nameUser").getValue().toString();
@@ -91,7 +93,7 @@ public class HomeFragment extends Fragment implements EspacioAdapter.ItemClicked
             }
         });
 
-//        recyclerView = v.findViewById(R.id.list);
+//        recyclerView = view.findViewById(R.id.list);
 //        recyclerView.setHasFixedSize(true);
 //        layoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
 //        recyclerView.setLayoutManager(layoutManager);
@@ -112,14 +114,14 @@ public class HomeFragment extends Fragment implements EspacioAdapter.ItemClicked
 //        recyclerView.setAdapter(myAdapter);
 //
 //
-//        bt_add.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                place.add(new Espacio("BedRoom"));
-//                myAdapter.notifyDataSetChanged();
-//            }
-//        });
+////        bt_add.setOnClickListener(new View.OnClickListener() {
+////            @Override
+////            public void onClick(View v) {
+////
+////                place.add(new Espacio("BedRoom"));
+////                myAdapter.notifyDataSetChanged();
+////            }
+////        });
 
 
         return view;
