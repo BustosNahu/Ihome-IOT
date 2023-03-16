@@ -10,11 +10,11 @@
             android:checkable="true"/>
         <item
             android:id="@+id/favouriteFragment"
-            android:icon="@drawable/ic_baseline_favorite_24"
+            android:icon="@drawable/ic_heart"
             android:checkable="true"/>
         <item
             android:id="@+id/accountFragment"
-            android:icon="@drawable/ic_account"
+            android:icon="@drawable/ic_user_outlined"
             android:checkable="true"/>
     </group>
 
