@@ -65,7 +65,8 @@ public class AccountFragment extends Fragment {
                 user =  snapshot.child(uid).getValue(UserDto.class);
                 tvfullName.setText(user.getNameUser());
 
-                Glide.with(requireContext()).load(user.getProfileUrl()).circleCrop().into(imProfile);
+                Glide.with(requireContext()).load(user.getProfileUrl()).circleCrop().
+                        into(imProfile);
             }
 
             @Override

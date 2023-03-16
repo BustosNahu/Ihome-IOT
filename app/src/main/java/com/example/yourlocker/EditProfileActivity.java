@@ -27,8 +27,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.yourlocker.Model.UserDto;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -102,28 +104,55 @@ public class EditProfileActivity extends AppCompatActivity {
         btnSaveChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 UpdateUserProfile();
+            }
+        });
+
+
+        arrow_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TERMINAR FLECHA PARA REGRESAR AL ACCOUNT FRAGMENT
             }
         });
 
 
     }//-------------------------------------------FIN DEL ONCREATE---------------------------------------------------------------
 
+    /**
+     * Metodo para actualizar datos del usuario
+     */
     private void UpdateUserProfile() {
+        String nameUser = etName.getText().toString().trim();
+        String emailUser = etEmail.getText().toString().trim();
+        String passUser = etPassword.getText().toString().trim();
+        String addressUser = etAdress.getText().toString().trim();
+        String numberAdressUser = etNumberAdress.getText().toString().trim();
+        HashMap hashMap = new HashMap<>();
+        hashMap.put("nameUser", nameUser);
+        hashMap.put("emailUser", emailUser);
+        hashMap.put("passUser", passUser);
+        hashMap.put("addressUser", addressUser);
+        hashMap.put("numberAdressUser", numberAdressUser);
 
-            HashMap hashMap = new HashMap<>();
-            hashMap.put("nameUser", etName);
-            hashMap.put("emailUser", etName);
-            databaseReference.child(USER_PATH).child(uid).updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener() {
-                @Override
-                public void onSuccess(Object o) {
+        databaseReference.child(USER_PATH).child(uid).updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(EditProfileActivity.this, "Save it with successful", Toast.LENGTH_SHORT).show();
 
-
+                }else{
+                    Toast.makeText(EditProfileActivity.this, "Error", Toast.LENGTH_SHORT).show();
                 }
-            });
-        }
+            }
+        });
+    }
 
 
+    /**
+     * Metodo para guardar imagen seleccionada desde galeria en foto del perfil del usuario
+     */
     private void saveImage() {
 
         if (profilePhotoUri != null) {
@@ -206,6 +235,12 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
+
+    /**
+     * Metodo para obtener y cargar datos del usuario en perfil
+     * @return retorna un objeto llamado user, instanciado de la clase UserDto, la cual contiene todos los datos
+     * del usuario, getters and setters
+     */
     private UserDto getUserProfile() {
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child(USER_PATH).addValueEventListener(new ValueEventListener() {
@@ -230,6 +265,7 @@ public class EditProfileActivity extends AppCompatActivity {
         });
         return user;
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -33,9 +33,6 @@ import com.google.android.material.navigation.NavigationView;
 public class HomeActivity extends AppCompatActivity {
 //implements BottomNavigationView.OnNavigationItemSelectedListener
 
-    Menu menu;
-    FragmentManager fragmentManager;
-    FragmentTransaction fragmentTransaction;
     NavController navController;
 
     BottomNavigationView bottomNavigationView;
