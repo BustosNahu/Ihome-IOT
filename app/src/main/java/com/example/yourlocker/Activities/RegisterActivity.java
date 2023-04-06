@@ -1,19 +1,19 @@
-package com.example.yourlocker;
+package com.example.yourlocker.Activities;
 
 import static com.example.yourlocker.Utils.Utils.USER_PATH;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.yourlocker.Activities.HomeActivity;
 import com.example.yourlocker.Model.UserDto;
+import com.example.yourlocker.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -65,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String espacioDispositivos = "0";
 
                 if(nameUser.isEmpty() && emailUser.isEmpty() && passUser.isEmpty() && confirmPassUser.isEmpty()){
-                    Toast.makeText(RegisterActivity.this, "Complete fields",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(RegisterActivity.this, "Complete fields",Toast.LENGTH_SHORT).show();
                 }else if (passUser.equals(confirmPassUser)){
                     //funcion para registro
                     registerUser(nameUser,emailUser, passUser, addressUser, numberAdressUser, espacioDispositivos, profileUrl);
@@ -103,19 +103,19 @@ public class RegisterActivity extends AppCompatActivity {
                             if(task.isSuccessful()) {
                                 //enviar mail de verificacion
                                 firebaseUser.sendEmailVerification();
-                                Toast.makeText(RegisterActivity.this, "Succesfull register, please verify your email", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(RegisterActivity.this, "Succesfull register, please verify your email", Toast.LENGTH_SHORT).show();
 
                             }else{
-                                Toast.makeText(RegisterActivity.this, "Register failed. Please try again", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(RegisterActivity.this, "Register failed. Please try again", Toast.LENGTH_SHORT).show();
                             }
 
                                 //abre el home despues de haber realizado la verificacion
-                                Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
-                                intent.setFlags(intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                        | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                //Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+                                //intent.setFlags(intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                        //| Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                                startActivity(intent);
-                                finish();
+                               // startActivity(intent);
+                                //finish();
 
                         }
                     });
