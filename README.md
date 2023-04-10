@@ -26,3 +26,11 @@ Hasta el momento fue unicamente diseñado el modelo de la cerradura IOT.
 El diseño de PCB de Ihome fue llevado a cabo en la plataforma de Kicad, donde tuve que descargar los footprints de los componentes, modelos 3d, etc. 
 Ya que la misma tiene un render que te permite ver los diseños en 3d. Ese mismo PCB terminado lo exportamos de Kicad y lo importamos en Fusion 360, 
 para realizar un modelado 3d mas eficaz. 
+
+COLABORADORES
+>Desarrollador general del proyecto: 
+--Nahuel Bustos 
+--nbustos.alexander@gmail.com
+>Encargada del diseño, estudio y desarrollo del UX/UI: 
+--Micaela Bustos
+--
