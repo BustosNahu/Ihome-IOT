@@ -31,6 +31,7 @@ COLABORADORES
 >Desarrollador general del proyecto: 
 --Nahuel Bustos 
 --nbustos.alexander@gmail.com
+.
 >Encargada del diseño, estudio y desarrollo del UX/UI: 
 --Micaela Bustos
---
+--micaela.bustos@hotmail.com
