@@ -6,6 +6,10 @@ El mismo posee desarrollo de hardware y modelado 3d de las cerraduras IOT.
 .APP MOBILE ANDROID 
 En cuanto al desarrollo de la App mobile, la misma esta siendo desarrollada en idioma nativo Java y esta disponible solo para Android.
 
+.MICROCONTROLADOR
+En cuanto al microcontrolador usado para la cerradura IOT de Ihome, fue utilizado un modulo ESP32s, el cual posee una antena para poder conectarse a la red wifi. 
+El mismo fue programado en C++ con Arduino IDE. 
+
 -ESTUDIO Y DISEÑO UX/UI
 La aplicacion de Ihome fue diseñada por un equipo certificado en UX/UI, creada y estudiada para un arquetipo de persona en especial, 
 y que el publico de Ihome sienta una mayor comodidad y experiencia de usuario al utilizar la aplicacion. 
