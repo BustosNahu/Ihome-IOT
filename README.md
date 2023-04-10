@@ -1,4 +1,4 @@
-# Ihome-IOT
+# IHome-IOT
 Este proyecto consta de una app con la cual deberias poder manejar toda tu casa,
 hasta el momento serian cerraduras, camaras, y posibles cortinas .
 El mismo posee desarrollo de hardware y modelado 3d de las cerraduras IOT. 
