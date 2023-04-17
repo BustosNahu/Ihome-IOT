@@ -39,20 +39,24 @@ para realizar un modelado 3d mas eficaz.
 
 ## 🔗 Desarrolladores Links
 - Desarrollador general del proyecto: 
+
 Nahuel Alexander Bustos 
 
 [![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://github.com/BustosNahu)
 
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/nahuel-alexander-bustos/)
 
-- Estudio y diseño del UX/UI
+- Estudio y diseño del UX/UI:
+
 Micaela Natasha Bustos
 
 [![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://github.com/BustosNahu)
 
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/nahuel-alexander-bustos/)
 
-- Desarrollador de la aplicacion web del microcontrolador
+- Desarrollador de la aplicacion web del microcontrolador:
+
+  Joaquin Cervio
 
 [![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://github.com/BustosNahu)
 
