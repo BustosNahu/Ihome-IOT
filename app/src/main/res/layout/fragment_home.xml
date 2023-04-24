@@ -63,27 +63,23 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="0dp"
-                android:outlineAmbientShadowColor="@color/black"
-                android:outlineSpotShadowColor="@color/black"
-                android:background="@drawable/top_radious"
-                android:elevation="10dp"
-                >
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_gravity="center_horizontal"-->
+<!--                android:layout_marginLeft="0dp"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:layout_marginRight="0dp"-->
+<!--                android:background="@drawable/top_radious"-->
+<!--                android:outlineAmbientShadowColor="@color/black"-->
+<!--                android:outlineSpotShadowColor="@color/black">-->
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-
-                    />
-            </LinearLayout>
+                    tools:listitem="@layout/list_items_place" />
+<!--            </LinearLayout>-->
 
         </LinearLayout>
 

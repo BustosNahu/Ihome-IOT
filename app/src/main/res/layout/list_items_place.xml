@@ -1,53 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="215dp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:xlms="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         xlms:card_view="http://schemas.android.com/apk/res-auto"
-        android:layout_width="130dp"
-        android:layout_height="190dp"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
         android:backgroundTint="#FF9800"
-        app:cardCornerRadius="30dp"
+        app:cardCornerRadius="20dp"
         app:cardUseCompatPadding="false"
-        android:layout_marginTop="11dp"
+        android:layout_margin="11dp"
         android:outlineAmbientShadowColor="@color/black"
         android:outlineSpotShadowColor="@color/black"
-        app:cardElevation="10dp"
+        app:cardElevation="7dp"
         android:layout_gravity="center"
         >
 
         <TextView
             android:id="@+id/tv_place"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="15dp"
             android:text="LivingRoom"
-            android:textStyle="bold"
             android:textColor="@color/white"
             android:textSize="18dp"
-            android:gravity="center"
-            android:layout_marginTop="15dp"
-            />
+            android:textStyle="bold" />
+
         <ImageView
             android:id="@+id/iv_home"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/ic_home"
-            android:layout_gravity="center"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="280dp"
             />
         <TextView
             android:id="@+id/tv_explain"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="40dp"
             android:text="Get access"
             android:textColor="@color/white"
             android:gravity="center"
             android:textSize="13sp"
+            android:layout_marginLeft="20dp"
             />
 
     </androidx.cardview.widget.CardView>

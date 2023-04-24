@@ -18,7 +18,8 @@ import java.util.ArrayList;
 public class EspacioAdapter extends RecyclerView.Adapter<EspacioAdapter.ViewHolder> {
 
     private ArrayList<Espacio> place;
-    ItemClicked activity;
+    Context context;
+//    ItemClicked activity;
 
     public interface ItemClicked{
         void onItemClick(int index);
@@ -27,7 +28,8 @@ public class EspacioAdapter extends RecyclerView.Adapter<EspacioAdapter.ViewHold
     public EspacioAdapter(Context context, ArrayList<Espacio> list)
     {
         place = list;
-        activity = (ItemClicked) context;
+//        activity = (ItemClicked) context;
+        this.context = context;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -44,12 +46,12 @@ public class EspacioAdapter extends RecyclerView.Adapter<EspacioAdapter.ViewHold
 
 
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    activity.onItemClick(place.indexOf((Espacio) v.getTag()));
-                }
-            });
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    activity.onItemClick(place.indexOf((Espacio) v.getTag()));
+//                }
+//            });
 
         }
     }
