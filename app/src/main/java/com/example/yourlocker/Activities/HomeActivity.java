@@ -1,4 +1,4 @@
-package com.example.yourlocker;
+package com.example.yourlocker.Activities;
 
 import androidx.annotation.NonNull;
 
@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.example.yourlocker.Fragments.AccountFragment;
 import com.example.yourlocker.Fragments.FavouriteFragment;
 import com.example.yourlocker.Fragments.HomeFragment;
+import com.example.yourlocker.R;
 import com.example.yourlocker.databinding.ActivityHomeBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;

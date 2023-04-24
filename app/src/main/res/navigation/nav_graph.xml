@@ -85,6 +85,6 @@
     </fragment>
     <activity
         android:id="@+id/editProfileActivity"
-        android:name="com.example.yourlocker.EditProfileActivity"
+        android:name="com.example.yourlocker.Activities.EditProfileActivity"
         android:label="EditProfileActivity" />
 </navigation>
