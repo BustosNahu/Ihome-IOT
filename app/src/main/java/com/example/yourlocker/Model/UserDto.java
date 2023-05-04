@@ -1,15 +1,15 @@
 package com.example.yourlocker.Model;
 
 public class UserDto {
-    public String nameUser, emailUser, passUser, addressUser, numberAdressUser, espacioDispositivos, profileUrl;
+    public String nameUser, emailUser, passUser, addressUser, numberAdressUser, RoomDispositivos, profileUrl;
     private UserDto() {}
-    public UserDto(String nameUser, String emailUser, String passUser, String addressUser, String numberAdressUser, String espacioDispositivos, String profileUrl) {
+    public UserDto(String nameUser, String emailUser, String passUser, String addressUser, String numberAdressUser, String RoomDispositivos, String profileUrl) {
         this.nameUser = nameUser;
         this.emailUser = emailUser;
         this.passUser = passUser;
         this.addressUser = addressUser;
         this.numberAdressUser = numberAdressUser;
-        this.espacioDispositivos = espacioDispositivos;
+        this.RoomDispositivos = RoomDispositivos;
         this.profileUrl = profileUrl;
     }
 
@@ -54,12 +54,12 @@ public class UserDto {
         this.numberAdressUser = numberAdressUser;
     }
 
-    public String getEspacioDispositivos() {
-        return espacioDispositivos;
+    public String getRoomDispositivos() {
+        return RoomDispositivos;
     }
 
-    public void setEspacioDispositivos(String espacioDispositivos) {
-        this.espacioDispositivos = espacioDispositivos;
+    public void setRoomDispositivos(String RoomDispositivos) {
+        this.RoomDispositivos = RoomDispositivos;
     }
 
     public String getProfileUrl() {

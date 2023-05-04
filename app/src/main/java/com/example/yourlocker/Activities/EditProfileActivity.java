@@ -162,7 +162,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
             // adding listeners on upload
             // or failure of image
-            ref.putFile(profilePhotoUri).addOnSuccessListener(
+            ref.putFile(profilePhotoUri)
+                    .addOnSuccessListener(
                             new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(

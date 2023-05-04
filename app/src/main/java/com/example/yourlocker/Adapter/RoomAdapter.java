@@ -10,14 +10,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.yourlocker.Model.Espacio;
+import com.example.yourlocker.Model.Room;
+import com.example.yourlocker.Model.UserDto;
 import com.example.yourlocker.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class EspacioAdapter extends RecyclerView.Adapter<EspacioAdapter.ViewHolder> {
+public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
 
-    private ArrayList<Espacio> place;
+    private List<Room> place;
     Context context;
 //    ItemClicked activity;
 
@@ -25,7 +27,7 @@ public class EspacioAdapter extends RecyclerView.Adapter<EspacioAdapter.ViewHold
         void onItemClick(int index);
     }
 
-    public EspacioAdapter(Context context, ArrayList<Espacio> list)
+    public RoomAdapter(Context context, List<Room> list)
     {
         place = list;
 //        activity = (ItemClicked) context;
@@ -49,7 +51,7 @@ public class EspacioAdapter extends RecyclerView.Adapter<EspacioAdapter.ViewHold
 //            itemView.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
-//                    activity.onItemClick(place.indexOf((Espacio) v.getTag()));
+//                    activity.onItemClick(place.indexOf((Room) v.getTag()));
 //                }
 //            });
 
@@ -58,17 +60,19 @@ public class EspacioAdapter extends RecyclerView.Adapter<EspacioAdapter.ViewHold
 
     @NonNull
     @Override
-    public EspacioAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_items_place, parent, false);
+    public RoomAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(context).inflate(R.layout.list_items_place, parent, false);
 
         return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull EspacioAdapter.ViewHolder holder, int position) {
-        holder.itemView.setTag(place.get(position));
+    public void onBindViewHolder(@NonNull RoomAdapter.ViewHolder holder, int position) {
 
-        holder.tv_place.setText(place.get(position).getLugar());
+//
+        Room Room = place.get(position);
+        holder.tv_place.setText(Room.getLugar());
+
 
     }
 

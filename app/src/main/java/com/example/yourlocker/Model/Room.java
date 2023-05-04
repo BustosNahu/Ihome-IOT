@@ -1,10 +1,10 @@
 package com.example.yourlocker.Model;
 
-public class Espacio {
+public class Room {
 
     private String lugar;
 
-    public Espacio(String lugar) {
+    public Room(String lugar) {
         this.lugar = lugar;
     }
 
