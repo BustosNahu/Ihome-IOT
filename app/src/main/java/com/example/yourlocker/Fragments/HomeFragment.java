@@ -44,7 +44,7 @@ import com.google.firebase.firestore.auth.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment implements RoomAdapter.ItemClicked {
+public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListener {
 
 
     View view;
@@ -57,9 +57,11 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClicked {
     DatabaseReference ref;
 
 
+
+    private RoomAdapter.ItemClickListener onClickCallBack;
     private RecyclerView recyclerView;
 
-    RecyclerView.Adapter myAdapter;
+    RoomAdapter myAdapter;
     RecyclerView.LayoutManager layoutManager;
     Button bt_add;
     List<Room> placeList = new ArrayList<>();
@@ -97,7 +99,6 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClicked {
 //
 
 
-
         return view;
     }////////////////////////////////////////////////////////////////////////////////FIN DEL ONCREATEVIEW/////////////////////////////////////////////////////////////////////////////
 
@@ -106,7 +107,7 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClicked {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        dataInitialice();
+        dataForRecyclerView();
         alertDialog();
 
         recyclerView = view.findViewById(R.id.list);
@@ -114,9 +115,8 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClicked {
 //      layoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
         layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
-        myAdapter = new RoomAdapter(requireActivity(), placeList);
+        myAdapter = new RoomAdapter(placeList, onClickCallBack);
         recyclerView.setAdapter(myAdapter);
-
         bt_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,30 +125,47 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClicked {
 
             }
         });
+
+
+        myAdapter.setItemClickListener(new RoomAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(Room room) {
+
+                // Aquí puedes realizar las acciones necesarias cuando se haga clic en un elemento
+                // En este ejemplo, simplemente se imprimirá el nombre de la habitación seleccionada
+                Log.d("MyAdapter", "Room name: " + room.getLugar());
+            }
+        });
+
     }
+
+
+
 
     /**
      * Method to initialice data to rooms recycler view
      */
-    private void dataInitialice() {
+    private void dataForRecyclerView() {
 
         ref.child(USER_PATH).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 placeList.clear();
-
                 try {
                     Log.e("Room_PLACENAME", snapshot.child(uid).child("espacioDispositivos").getValue().toString());
+
                     for (DataSnapshot dataSnapshot : snapshot.child(uid).child("espacioDispositivos").getChildren()) {
 
-                        String room = dataSnapshot.getValue(String.class);
+                        String room = dataSnapshot.child("room").getValue(String.class);
                         Log.e("Room_ROOMS", room);
 
                         Room Room = new Room(room);
                         Log.e("Room", Room.toString());
                         placeList.add(Room);
                     }
-                    recyclerView.setAdapter(new RoomAdapter(requireActivity(), placeList));
+
+                    recyclerView.setAdapter(myAdapter);
+
 
                 }catch (Exception e){
                     Toast.makeText(getActivity(), "Error en base de datos", Toast.LENGTH_SHORT).show();
@@ -162,8 +179,6 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClicked {
 
             }
         });
-
-
     }
 
     /**
@@ -225,13 +240,8 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClicked {
     }
 
 
-    /**
-     * FUNCION para identificar que item del RECYCLER VIEW se esta clickeando
-     *
-     * @param index
-     */
     @Override
-    public void onItemClick(int index) {
-        Toast.makeText(getContext(), "Lugar" + " " + placeList.get(index).getLugar(), Toast.LENGTH_SHORT).show();
+    public void onItemClick(Room room) {
+
     }
 }

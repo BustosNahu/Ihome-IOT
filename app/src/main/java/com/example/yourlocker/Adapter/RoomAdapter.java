@@ -1,6 +1,9 @@
 package com.example.yourlocker.Adapter;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.icu.text.Transliterator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,18 +23,18 @@ import java.util.List;
 public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
 
     private List<Room> place;
+
+    private ItemClickListener itemClickListener;
     Context context;
 //    ItemClicked activity;
 
-    public interface ItemClicked{
-        void onItemClick(int index);
-    }
 
-    public RoomAdapter(Context context, List<Room> list)
+    public RoomAdapter(List<Room> list, ItemClickListener itemClickListener)
     {
-        place = list;
-//        activity = (ItemClicked) context;
-        this.context = context;
+        this.place = list;
+        this.itemClickListener = itemClickListener;
+//        fragment = (ItemClicked) context;
+       // this.context = context;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -48,12 +51,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
 
 
 
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    activity.onItemClick(place.indexOf((Room) v.getTag()));
-//                }
-//            });
+
 
         }
     }
@@ -61,17 +59,25 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
     @NonNull
     @Override
     public RoomAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.list_items_place, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_items_place, parent, false);
 
         return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RoomAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RoomAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
 //
         Room Room = place.get(position);
         holder.tv_place.setText(Room.getLugar());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    itemClickListener.onItemClick(place.get(position));
+
+                }
+            });
 
 
     }
@@ -80,4 +86,14 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
     public int getItemCount() {
         return place.size();
     }
+
+    public interface ItemClickListener {
+        void onItemClick(Room room);
+    }
+
+    public void setItemClickListener(ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+    }
+
+
 }
