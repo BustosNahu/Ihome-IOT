@@ -2,17 +2,30 @@ package com.example.yourlocker.Model;
 
 public class Room {
 
-    private String lugar;
+    private String room, id;
 
-    public Room(String lugar) {
-        this.lugar = lugar;
+    public Room(String room, String id) {
+        this.room = room;
+        this.id = id;
+
     }
 
-    public String getLugar() {
-        return lugar;
+    public String getId() {
+        return id;
     }
 
-    public void setLugar(String lugar) {
-        this.lugar = lugar;
+    public void setId(String id) {
+        this.id = id;
     }
-}
+
+    public String getRoom() {
+        return room;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
+    }
+
+
+    }
+

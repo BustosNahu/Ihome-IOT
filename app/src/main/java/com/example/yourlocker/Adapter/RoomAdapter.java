@@ -25,16 +25,12 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
     private List<Room> place;
 
     private ItemClickListener itemClickListener;
-    Context context;
-//    ItemClicked activity;
-
 
     public RoomAdapter(List<Room> list, ItemClickListener itemClickListener)
     {
         this.place = list;
         this.itemClickListener = itemClickListener;
-//        fragment = (ItemClicked) context;
-       // this.context = context;
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -69,7 +65,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
 
 //
         Room Room = place.get(position);
-        holder.tv_place.setText(Room.getLugar());
+        holder.tv_place.setText(Room.getRoom());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

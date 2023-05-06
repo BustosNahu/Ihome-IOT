@@ -43,6 +43,7 @@ import com.google.firebase.firestore.auth.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListener {
 
@@ -133,7 +134,7 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
 
                 // Aquí puedes realizar las acciones necesarias cuando se haga clic en un elemento
                 // En este ejemplo, simplemente se imprimirá el nombre de la habitación seleccionada
-                Log.d("MyAdapter", "Room name: " + room.getLugar());
+                Log.d("MyAdapter", "Room name: " + room.getRoom());
             }
         });
 
@@ -157,9 +158,10 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
                     for (DataSnapshot dataSnapshot : snapshot.child(uid).child("espacioDispositivos").getChildren()) {
 
                         String room = dataSnapshot.child("room").getValue(String.class);
+                        String roomId = dataSnapshot.child("id").getValue(String.class);
                         Log.e("Room_ROOMS", room);
 
-                        Room Room = new Room(room);
+                        Room Room = new Room(room, roomId);
                         Log.e("Room", Room.toString());
                         placeList.add(Room);
                     }
@@ -204,16 +206,19 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
             @Override
             public void onClick(View v) {
 
-                String newRoomName = et_new_room.getText().toString().trim();
-                ref.child(USER_PATH).child(uid).child("espacioDispositivos")
-                        .push()
-                        .child("room")
-                        .setValue(newRoomName);
+                String RoomName = et_new_room.getText().toString().trim();
+                String roomId = UUID.randomUUID().toString().trim();
+                Room r = new Room(RoomName , roomId);
 
+
+                ref.child(USER_PATH).child(uid).child("espacioDispositivos")
+                        .child(roomId)
+                        .setValue(r);
 
                 dialog.dismiss();
             }
         });
+
         builder.setView(view);
         dialog = builder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
