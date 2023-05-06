@@ -13,6 +13,14 @@ public class UserDto {
         this.profileUrl = profileUrl;
     }
 
+    public String getRoomDispositivos() {
+        return RoomDispositivos;
+    }
+
+    public void setRoomDispositivos(String roomDispositivos) {
+        RoomDispositivos = roomDispositivos;
+    }
+
     public String getNameUser() {
         return nameUser;
     }
@@ -54,13 +62,6 @@ public class UserDto {
         this.numberAdressUser = numberAdressUser;
     }
 
-    public String getRoomDispositivos() {
-        return RoomDispositivos;
-    }
-
-    public void setRoomDispositivos(String RoomDispositivos) {
-        this.RoomDispositivos = RoomDispositivos;
-    }
 
     public String getProfileUrl() {
         return profileUrl;

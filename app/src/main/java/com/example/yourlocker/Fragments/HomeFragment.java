@@ -1,5 +1,6 @@
 package com.example.yourlocker.Fragments;
 
+import static com.example.yourlocker.Utils.Utils.ROOM_ID;
 import static com.example.yourlocker.Utils.Utils.USER_PATH;
 
 import android.graphics.Color;
@@ -67,7 +68,8 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
     Button bt_add;
     List<Room> placeList = new ArrayList<>();
 
-    private HomeFragment binding;
+    NavHostFragment navHostFragment;
+    NavController navController;
 
     AlertDialog dialog;
 
@@ -78,27 +80,13 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        NavHostFragment navHostFragment =
-                (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_container);
-        NavController navController = navHostFragment.getNavController();
+        navHostFragment = (NavHostFragment) getActivity()
+                .getSupportFragmentManager()
+                .findFragmentById(R.id.nav_host_fragment_container);
+        navController = navHostFragment.getNavController();
 
         init();
         nameDataBaseRequest();
-
-        //boton de añadir dispositivo
-        bt_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navController.navigate(R.id.accountFragment);
-            }
-        });
-
-//        recyclerView = view.findViewById(R.id.list);
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-//
-//
-
 
         return view;
     }////////////////////////////////////////////////////////////////////////////////FIN DEL ONCREATEVIEW/////////////////////////////////////////////////////////////////////////////
@@ -134,7 +122,11 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
 
                 // Aquí puedes realizar las acciones necesarias cuando se haga clic en un elemento
                 // En este ejemplo, simplemente se imprimirá el nombre de la habitación seleccionada
-                Log.d("MyAdapter", "Room name: " + room.getRoom());
+                Log.d("ROOM_NAME", "Room name: " + room.getRoom());
+                Log.d("ROOM_ID", "id: " + room.getId());
+                Bundle myBundle = new Bundle();
+                myBundle.putString(ROOM_ID, room.getId());
+                navController.navigate(R.id.roomFragment, myBundle);
             }
         });
 
@@ -162,7 +154,7 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
                         Log.e("Room_ROOMS", room);
 
                         Room Room = new Room(room, roomId);
-                        Log.e("Room", Room.toString());
+                        Log.e("RoomName", Room.toString());
                         placeList.add(Room);
                     }
 
@@ -194,6 +186,10 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
         bt_add = (Button) view.findViewById(R.id.bt_add);
     }
 
+    /**
+     * Method to show an alert dialog and complete an editText to
+     * create new room, with an Id objet.
+     */
     private void alertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
@@ -208,12 +204,12 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
 
                 String RoomName = et_new_room.getText().toString().trim();
                 String roomId = UUID.randomUUID().toString().trim();
-                Room r = new Room(RoomName , roomId);
+                Room myRoom = new Room(RoomName , roomId);
 
 
                 ref.child(USER_PATH).child(uid).child("espacioDispositivos")
                         .child(roomId)
-                        .setValue(r);
+                        .setValue(myRoom);
 
                 dialog.dismiss();
             }

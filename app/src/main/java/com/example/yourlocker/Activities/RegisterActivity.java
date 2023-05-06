@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -59,10 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String numberAdressUser = et_NumberAdress.getText().toString().trim();
                 String floorDptoUser = et_floor_dpto.getText().toString().trim();
                 String profileUrl = "";
-                /**
-                 * PREGUNTALE A JUANI
-                 */
-                String RoomDispositivos = "0";
+                String RoomDispositivos = "";
 
                 if(nameUser.isEmpty() && emailUser.isEmpty() && passUser.isEmpty() && confirmPassUser.isEmpty()){
                     //Toast.makeText(RegisterActivity.this, "Complete fields",Toast.LENGTH_SHORT).show();
@@ -106,7 +104,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 //Toast.makeText(RegisterActivity.this, "Succesfull register, please verify your email", Toast.LENGTH_SHORT).show();
 
                             }else{
-                                //Toast.makeText(RegisterActivity.this, "Register failed. Please try again", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this, "Register failed. Please try again", Toast.LENGTH_SHORT).show();
                             }
 
                                 //abre el home despues de haber realizado la verificacion

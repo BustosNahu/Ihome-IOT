@@ -24,6 +24,9 @@
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_homeFragment_to_roomFragment"
+            app:destination="@id/roomFragment" />
     </fragment>
     <fragment
         android:id="@+id/favouriteFragment"
@@ -61,11 +64,6 @@
             app:destination="@id/editProfileActivity" />
     </fragment>
     <fragment
-        android:id="@+id/newRoomFragment"
-        android:name="com.example.yourlocker.Fragments.NewRoomFragment"
-        android:label="fragment_new_room"
-        tools:layout="@layout/fragment_new_room" />
-    <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.example.yourlocker.Fragments.EditProfileFragment"
         android:label="EditProfileFragment"
@@ -87,4 +85,13 @@
         android:id="@+id/editProfileActivity"
         android:name="com.example.yourlocker.Activities.EditProfileActivity"
         android:label="EditProfileActivity" />
+    <fragment
+        android:id="@+id/roomFragment"
+        android:name="com.example.yourlocker.Fragments.RoomFragment"
+        android:label="fragment_room"
+        tools:layout="@layout/fragment_room" >
+        <action
+            android:id="@+id/action_roomFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>
