@@ -2,7 +2,9 @@ package com.example.yourlocker.Activities;
 
 import static com.example.yourlocker.Utils.Utils.USER_PATH;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -52,21 +54,21 @@ public class RegisterActivity extends AppCompatActivity {
         bt_singin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nameUser = et_name.getText().toString().trim();
-                String emailUser = et_email.getText().toString().trim();
+                String nameUser = et_name.getText().toString();
+                String emailUser = et_email.getText().toString();
                 String passUser = et_password.getText().toString().trim();
                 String confirmPassUser = et_password_confirm.getText().toString().trim();
                 String addressUser = et_address.getText().toString().trim();
                 String numberAdressUser = et_NumberAdress.getText().toString().trim();
                 String floorDptoUser = et_floor_dpto.getText().toString().trim();
-                String profileUrl = "";
-                String RoomDispositivos = "";
+                String profileUrl = "hola";
+                String rooms = "hola";
 
                 if(nameUser.isEmpty() && emailUser.isEmpty() && passUser.isEmpty() && confirmPassUser.isEmpty()){
-                    //Toast.makeText(RegisterActivity.this, "Complete fields",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Complete fields",Toast.LENGTH_SHORT).show();
                 }else if (passUser.equals(confirmPassUser)){
                     //funcion para registro
-                    registerUser(nameUser,emailUser, passUser, addressUser, numberAdressUser, RoomDispositivos, profileUrl);
+                    registerUser(nameUser,emailUser , passUser, addressUser, numberAdressUser, rooms, profileUrl);
                 }
 
             }
@@ -81,19 +83,32 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void registerUser(String nameUser, String emailUser, String passUser, String addressUser, String numberAdressUser,  String RoomDispositivos, String profileUrl ) {
-        mAuth.createUserWithEmailAndPassword(emailUser, passUser).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+    private void registerUser(String nameUser, String emailUser, String passUser, String addressUser, String numberAdressUser,  String rooms, String profileUrl ) {
+        Log.d("USER_DETAILS", "name: " + nameUser);
+        Log.d("USER_DETAILS", "email: " + emailUser);
+        Log.d("USER_DETAILS", "password: " + passUser);
+        Log.d("USER_DETAILS", "address: " + addressUser);
+        Log.d("USER_DETAILS", "numberAdress: " + numberAdressUser);
+        Log.d("USER_DETAILS", "rooms: " + rooms);
+        Log.d("USER_DETAILS", "url: " + profileUrl);
+        Log.d("USER_DETAILS", "passWORD: " + et_password.getText().toString());
+
+        mAuth.createUserWithEmailAndPassword
+                        (et_email.getText().toString(),
+                        et_password.getText().toString())
+
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+                Log.d("USER_DETAILS", "Data base result:" + task);
                 if(task.isSuccessful()) {
                     FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
                     //Ingresar datos en firebase realtime database
-                    UserDto writeUserDetails = new UserDto(nameUser, emailUser, passUser, addressUser, numberAdressUser, RoomDispositivos, profileUrl);
+                    UserDto writeUserDetails = new UserDto(nameUser, emailUser, passUser, addressUser, numberAdressUser, rooms, profileUrl);
 
                     //Extrayendo referencia de usuario de la base de datos "Usuarios registrados"
                     DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference(USER_PATH);
-
                     referenceProfile.child(firebaseUser.getUid()).setValue(writeUserDetails).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -101,23 +116,27 @@ public class RegisterActivity extends AppCompatActivity {
                             if(task.isSuccessful()) {
                                 //enviar mail de verificacion
                                 firebaseUser.sendEmailVerification();
-                                //Toast.makeText(RegisterActivity.this, "Succesfull register, please verify your email", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this, "Succesfull register, please verify your email", Toast.LENGTH_SHORT).show();
+
+                                //Open home's activity, after register == successful
+//                                Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+//
+//                                intent.setFlags(intent.FLAG_ACTIVITY_CLEAR_TOP
+//                                        | Intent.FLAG_ACTIVITY_CLEAR_TASK
+//                                        | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                startActivity(intent);
+//                                finish();
 
                             }else{
                                 Toast.makeText(RegisterActivity.this, "Register failed. Please try again", Toast.LENGTH_SHORT).show();
                             }
 
-                                //abre el home despues de haber realizado la verificacion
-                                //Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
-                                //intent.setFlags(intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                        //| Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                               // startActivity(intent);
-                                //finish();
 
                         }
                     });
-
+                } else {
+                    Toast.makeText(RegisterActivity.this, "Error de base de datos", Toast.LENGTH_SHORT).show();
 
                 }
             }

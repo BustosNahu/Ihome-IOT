@@ -1,24 +1,25 @@
 package com.example.yourlocker.Model;
 
 public class UserDto {
-    public String nameUser, emailUser, passUser, addressUser, numberAdressUser, RoomDispositivos, profileUrl;
+    public String nameUser, emailUser, passUser, addressUser, numberAdressUser, rooms, profileUrl;
     private UserDto() {}
-    public UserDto(String nameUser, String emailUser, String passUser, String addressUser, String numberAdressUser, String RoomDispositivos, String profileUrl) {
+    public UserDto(String nameUser, String emailUser, String passUser, String addressUser, String numberAdressUser, String rooms, String profileUrl) {
         this.nameUser = nameUser;
         this.emailUser = emailUser;
         this.passUser = passUser;
         this.addressUser = addressUser;
         this.numberAdressUser = numberAdressUser;
-        this.RoomDispositivos = RoomDispositivos;
+        this.rooms = rooms;
         this.profileUrl = profileUrl;
     }
 
-    public String getRoomDispositivos() {
-        return RoomDispositivos;
+
+    public String getRooms() {
+        return rooms;
     }
 
-    public void setRoomDispositivos(String roomDispositivos) {
-        RoomDispositivos = roomDispositivos;
+    public void setRooms(String rooms) {
+        this.rooms = rooms;
     }
 
     public String getNameUser() {
