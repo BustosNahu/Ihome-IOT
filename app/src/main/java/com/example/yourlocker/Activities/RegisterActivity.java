@@ -54,15 +54,15 @@ public class RegisterActivity extends AppCompatActivity {
         bt_singin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nameUser = et_name.getText().toString();
-                String emailUser = et_email.getText().toString();
+                String nameUser = et_name.getText().toString().trim();
+                String emailUser = et_email.getText().toString().trim();
                 String passUser = et_password.getText().toString().trim();
                 String confirmPassUser = et_password_confirm.getText().toString().trim();
                 String addressUser = et_address.getText().toString().trim();
                 String numberAdressUser = et_NumberAdress.getText().toString().trim();
                 String floorDptoUser = et_floor_dpto.getText().toString().trim();
-                String profileUrl = "hola";
-                String rooms = "hola";
+                String profileUrl = "";
+                String rooms = "";
 
                 if(nameUser.isEmpty() && emailUser.isEmpty() && passUser.isEmpty() && confirmPassUser.isEmpty()){
                     Toast.makeText(RegisterActivity.this, "Complete fields",Toast.LENGTH_SHORT).show();
@@ -94,9 +94,8 @@ public class RegisterActivity extends AppCompatActivity {
         Log.d("USER_DETAILS", "passWORD: " + et_password.getText().toString());
 
         mAuth.createUserWithEmailAndPassword
-                        (et_email.getText().toString(),
-                        et_password.getText().toString())
-
+                        (emailUser,
+                                passUser)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -118,14 +117,14 @@ public class RegisterActivity extends AppCompatActivity {
                                 firebaseUser.sendEmailVerification();
                                 Toast.makeText(RegisterActivity.this, "Succesfull register, please verify your email", Toast.LENGTH_SHORT).show();
 
-                                //Open home's activity, after register == successful
-//                                Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
-//
-//                                intent.setFlags(intent.FLAG_ACTIVITY_CLEAR_TOP
-//                                        | Intent.FLAG_ACTIVITY_CLEAR_TASK
-//                                        | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                startActivity(intent);
-//                                finish();
+//                                Open home's activity, after register == successful
+                                Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+
+                                intent.setFlags(intent.FLAG_ACTIVITY_CLEAR_TOP
+                                        | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                        | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                                finish();
 
                             }else{
                                 Toast.makeText(RegisterActivity.this, "Register failed. Please try again", Toast.LENGTH_SHORT).show();

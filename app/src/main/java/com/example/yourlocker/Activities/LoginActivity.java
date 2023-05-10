@@ -37,8 +37,8 @@ public class LoginActivity extends AppCompatActivity {
         et_password = findViewById(R.id.et_password);
         bt_log_in = findViewById(R.id.bt_log_in);
 
-        et_email.setText("nbustosalexander@gmail.com");
-        et_password.setText("123456");
+        et_email.setText("nbustos.alexander@gmail.com");
+        et_password.setText("cerretti1477");
 
 
 

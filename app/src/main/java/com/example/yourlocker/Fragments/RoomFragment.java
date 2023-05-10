@@ -63,15 +63,18 @@ public class RoomFragment extends Fragment {
         ref.child(USER_PATH).child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String roomName = snapshot.child("espacioDispositivos")
-                        .child(roomId)
-                        .child("room")
-                        .getValue()
-                        .toString();
+                try {
+                    String roomName = snapshot.child("rooms")
+                            .child(roomId)
+                            .child("room")
+                            .getValue()
+                            .toString();
 
-                tv_name.setText(roomName);
-                Log.d("ROOM_NAME", "NAME: " + roomName);
-
+                    tv_name.setText(roomName);
+                    Log.d("ROOM_NAME", "NAME: " + roomName);
+                }catch (Exception e){
+                    Toast.makeText(requireActivity(), "Error en la base de datos", Toast.LENGTH_SHORT).show();
+                }
 
             }
 

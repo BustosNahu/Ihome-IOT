@@ -145,9 +145,9 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 placeList.clear();
                 try {
-                    Log.e("Room_PLACENAME", snapshot.child(uid).child("espacioDispositivos").getValue().toString());
+                    Log.e("Room_PLACENAME", snapshot.child(uid).child("rooms").getValue().toString());
 
-                    for (DataSnapshot dataSnapshot : snapshot.child(uid).child("espacioDispositivos").getChildren()) {
+                    for (DataSnapshot dataSnapshot : snapshot.child(uid).child("rooms").getChildren()) {
 
                         String room = dataSnapshot.child("room").getValue(String.class);
                         String roomId = dataSnapshot.child("id").getValue(String.class);
@@ -207,7 +207,7 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
                 Room myRoom = new Room(RoomName , roomId);
 
 
-                ref.child(USER_PATH).child(uid).child("espacioDispositivos")
+                ref.child(USER_PATH).child(uid).child("rooms")
                         .child(roomId)
                         .setValue(myRoom);
 
