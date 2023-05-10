@@ -20,10 +20,15 @@
         android:backgroundTint="#787474"
         app:cardCornerRadius="50dp"
         app:cardElevation="4dp"
-        app:cardUseCompatPadding="false"
         xlms:card_view="http://schemas.android.com/apk/res-auto">
 
-
+        <ImageView
+            android:id="@+id/room_background"
+            android:layout_width="match_parent"
+            android:scaleType="fitXY"
+            android:layout_height="match_parent"
+            android:alpha="1.0"
+            />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

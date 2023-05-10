@@ -1,8 +1,15 @@
 package com.example.yourlocker.Adapter;
 
+import static com.example.yourlocker.Utils.Utils.BED_ROOM;
+import static com.example.yourlocker.Utils.Utils.GARAGE;
+import static com.example.yourlocker.Utils.Utils.HOME_OUTSIDE;
+import static com.example.yourlocker.Utils.Utils.KITCHEN;
+import static com.example.yourlocker.Utils.Utils.LIVING_ROOM;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.icu.text.Transliterator;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +17,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.yourlocker.Model.Room;
 import com.example.yourlocker.Model.UserDto;
 import com.example.yourlocker.R;
+import com.google.android.material.drawable.DrawableUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,13 +47,14 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
 
         ImageView iv_home;
         TextView tv_place, tv_explain;
+        ImageView room_background;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tv_place = itemView.findViewById(R.id.tv_place);
             tv_explain = itemView.findViewById(R.id.tv_explain);
-
+            room_background = itemView.findViewById(R.id.room_background);
 
 
 
@@ -66,10 +77,44 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
         Room Room = place.get(position);
         holder.tv_place.setText(Room.getRoom());
 
+        switch (Room.getType()){
+            case BED_ROOM:  {
+                Drawable drawable = holder.itemView.getResources().getDrawable(R.drawable.living_pic);
+
+                holder.room_background.setImageDrawable(drawable);
+
+                break;
+            }
+//            case LIVING_ROOM:  {
+//                holder.room_background.setBackgroundResource(R.drawable.);
+//                break;
+//            }
+//            case KITCHEN:  {
+//                holder.room_background.setBackgroundResource(R.drawable.cocina);
+//                break;
+//            }
+//            case GARAGE:  {
+//                holder.room_background.setBackgroundResource(R.drawable.cocina);
+//                break;
+//            }
+//            case HOME_OUTSIDE:  {
+//                holder.room_background.setBackgroundResource(R.drawable.cocina);
+//                break;
+//            }
+            default: {
+//                holder.room_background.setBackgroundColor();
+                Drawable drawable = holder.itemView.getResources().getDrawable(R.drawable.living_pic);
+
+                holder.room_background.setImageDrawable(drawable);
+            }
+        }
+
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     itemClickListener.onItemClick(place.get(position));
+
 
                 }
             });

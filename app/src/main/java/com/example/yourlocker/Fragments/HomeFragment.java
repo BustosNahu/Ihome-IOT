@@ -238,7 +238,7 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 String item = parent.getItemAtPosition(position).toString();
-                roomType = item;
+                roomType = item.trim();
 
 
             }
