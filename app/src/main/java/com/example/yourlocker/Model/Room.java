@@ -2,12 +2,21 @@ package com.example.yourlocker.Model;
 
 public class Room {
 
-    private String room, id;
+    private String room, id, type;
 
-    public Room(String room, String id) {
+    public Room(String room, String id, String type) {
         this.room = room;
         this.id = id;
+        this.type = type;
 
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getId() {

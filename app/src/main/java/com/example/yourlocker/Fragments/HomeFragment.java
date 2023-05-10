@@ -24,6 +24,9 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -34,6 +37,7 @@ import com.example.yourlocker.Model.Room;
 import com.example.yourlocker.Model.StringList;
 import com.example.yourlocker.Model.UserDto;
 import com.example.yourlocker.R;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -61,6 +65,16 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
 
 
     private RoomAdapter.ItemClickListener onClickCallBack;
+
+
+    private String[] item = {"Bed Room","Living Room","Kitchen", "Garage", "Home Outside"};
+    private AutoCompleteTextView autoCompleteTextView;
+
+    private TextInputLayout textInputLayout;
+
+    private ArrayAdapter<String> itemAdapter;
+
+
     private RecyclerView recyclerView;
 
     RoomAdapter myAdapter;
@@ -72,6 +86,8 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
     NavController navController;
 
     AlertDialog dialog;
+
+    private String roomType;
 
 
     @Override
@@ -154,9 +170,10 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
 
                         String room = dataSnapshot.child("room").getValue(String.class);
                         String roomId = dataSnapshot.child("id").getValue(String.class);
+                        String roomType = dataSnapshot.child("type").getValue(String.class);
                         Log.e("Room_ROOMS", room);
 
-                        Room Room = new Room(room, roomId);
+                        Room Room = new Room(room, roomId, roomType);
                         Log.e("RoomName", Room.toString());
                         placeList.add(Room);
                     }
@@ -187,6 +204,10 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
         uid = mAuth.getCurrentUser().getUid();
         tv_name = view.findViewById(R.id.tv_name);
         bt_add = (Button) view.findViewById(R.id.bt_add);
+
+//        Dialog drop menu
+
+
     }
 
     /**
@@ -196,33 +217,66 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
     private void alertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
-        //inflate new_room_custom_dialog view
+
+
+
+//        inflate new_room_custom_dialog view
         view = getLayoutInflater().inflate(R.layout.new_room_dialog, null);
         EditText et_new_room = (EditText) view.findViewById(R.id.et_new_room);
         Button bt_confirm = (Button) view.findViewById(R.id.bt_confirm);
+        textInputLayout = view.findViewById(R.id.tx_input);
+        autoCompleteTextView = view.findViewById(R.id.items_menu);
+
+
+        itemAdapter = new ArrayAdapter<>(requireActivity(), R.layout.list_item_drop_down_menu, item);
+        autoCompleteTextView.setAdapter(itemAdapter);
+
+
+
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String item = parent.getItemAtPosition(position).toString();
+                roomType = item;
+
+
+            }
+        });
 
         bt_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String RoomName = et_new_room.getText().toString().trim();
+                String roomName = et_new_room.getText().toString().trim();
                 String roomId = UUID.randomUUID().toString().trim();
-                Room myRoom = new Room(RoomName , roomId);
+
+                if(!roomName.isEmpty() && !roomType.isEmpty()){
+
+                    Room myRoom = new Room(roomName , roomId, roomType);
 
 
-                ref.child(USER_PATH).child(uid).child("rooms")
-                        .child(roomId)
-                        .setValue(myRoom);
+                    ref.child(USER_PATH).child(uid).child("rooms")
+                            .child(roomId)
+                            .setValue(myRoom);
 
-                dialog.dismiss();
+                    dialog.dismiss();
+                }else {
+                    Toast.makeText(requireActivity(), "Complete fields", Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
+
 
         builder.setView(view);
         dialog = builder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
     }
+
+
 
     /**
      * This method make a database request to get the user name, and it shows in main screen
