@@ -155,7 +155,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Password"
+        android:text="Password (6 or more digits)"
         android:textColor="@color/black"
         android:textSize="14sp"
         android:layout_marginTop="15dp"

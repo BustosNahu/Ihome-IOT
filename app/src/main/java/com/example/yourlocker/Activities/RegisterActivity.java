@@ -48,6 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
         et_NumberAdress = findViewById(R.id.et_NumberAdress);
         et_floor_dpto = findViewById(R.id.et_floor_dpto);
         bt_singin = findViewById(R.id.bt_singin);
+        
 
 
 
@@ -91,7 +92,7 @@ public class RegisterActivity extends AppCompatActivity {
         Log.d("USER_DETAILS", "numberAdress: " + numberAdressUser);
         Log.d("USER_DETAILS", "rooms: " + rooms);
         Log.d("USER_DETAILS", "url: " + profileUrl);
-        Log.d("USER_DETAILS", "passWORD: " + et_password.getText().toString());
+
 
         mAuth.createUserWithEmailAndPassword
                         (emailUser,
