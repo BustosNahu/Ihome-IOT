@@ -101,8 +101,11 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
 
         recyclerView = view.findViewById(R.id.list);
         recyclerView.setHasFixedSize(true);
-//      layoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
-        layoutManager = new LinearLayoutManager(view.getContext());
+
+        layoutManager = new LinearLayoutManager(getContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false);
+
         recyclerView.setLayoutManager(layoutManager);
         myAdapter = new RoomAdapter(placeList, onClickCallBack);
         recyclerView.setAdapter(myAdapter);
@@ -230,7 +233,7 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 String name = snapshot.child(uid).child("nameUser").getValue().toString();
-                tv_name.setText("Welcome" + " " + name);
+                tv_name.setText("Hi" + " " + name);
             }
 
             @Override

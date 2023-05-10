@@ -43,7 +43,6 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
 
             tv_place = itemView.findViewById(R.id.tv_place);
             tv_explain = itemView.findViewById(R.id.tv_explain);
-            iv_home = itemView.findViewById(R.id.iv_home);
 
 
 
