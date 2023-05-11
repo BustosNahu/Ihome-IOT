@@ -79,26 +79,26 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
 
         switch (Room.getType()){
             case BED_ROOM:  {
-                Drawable drawable = holder.itemView.getResources().getDrawable(R.drawable.living_pic);
+                Drawable drawable = holder.itemView.getResources().getDrawable(R.drawable.room_pic);
 
                 holder.room_background.setImageDrawable(drawable);
 
                 break;
             }
-//            case LIVING_ROOM:  {
+            case LIVING_ROOM:  {
+                holder.room_background.setBackgroundResource(R.drawable.living_pic);
+                break;
+            }
+            case KITCHEN:  {
+                holder.room_background.setBackgroundResource(R.drawable.kitchen_pic);
+                break;
+            }
+//            case GARAGE:  {
 //                holder.room_background.setBackgroundResource(R.drawable.);
 //                break;
 //            }
-//            case KITCHEN:  {
-//                holder.room_background.setBackgroundResource(R.drawable.cocina);
-//                break;
-//            }
-//            case GARAGE:  {
-//                holder.room_background.setBackgroundResource(R.drawable.cocina);
-//                break;
-//            }
 //            case HOME_OUTSIDE:  {
-//                holder.room_background.setBackgroundResource(R.drawable.cocina);
+//                holder.room_background.setBackgroundResource(R.drawable.);
 //                break;
 //            }
             default: {
