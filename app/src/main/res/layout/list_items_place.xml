@@ -5,16 +5,16 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginLeft="10dp"
+    android:layout_marginLeft="5dp"
 
     >
 
 
     <androidx.cardview.widget.CardView
         android:layout_width="150dp"
-        android:layout_height="350dp"
+        android:layout_height="380dp"
         android:layout_gravity="center"
-        android:layout_margin="7dp"
+        android:layout_margin="5dp"
         android:outlineAmbientShadowColor="@color/black"
         android:outlineSpotShadowColor="@color/black"
         android:backgroundTint="#787474"
@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:scaleType="fitXY"
             android:layout_height="match_parent"
-            android:alpha="0.9"
+            android:alpha="0.7"
             />
             <LinearLayout
                 android:layout_width="wrap_content"

@@ -37,6 +37,7 @@ import com.example.yourlocker.Model.Room;
 import com.example.yourlocker.Model.StringList;
 import com.example.yourlocker.Model.UserDto;
 import com.example.yourlocker.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -68,6 +69,7 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
 
 
     private String[] item = {"Bed Room","Living Room","Kitchen", "Garage", "Home Outside"};
+
     private AutoCompleteTextView autoCompleteTextView;
 
     private TextInputLayout textInputLayout;
@@ -79,7 +81,7 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
 
     RoomAdapter myAdapter;
     RecyclerView.LayoutManager layoutManager;
-    Button bt_add;
+    FloatingActionButton bt_add;
     List<Room> placeList = new ArrayList<>();
 
     NavHostFragment navHostFragment;
@@ -139,10 +141,8 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
             @Override
             public void onItemClick(Room room) {
 
-                // Aquí puedes realizar las acciones necesarias cuando se haga clic en un elemento
-                // En este ejemplo, simplemente se imprimirá el nombre de la habitación seleccionada
-                Log.d("ROOM_NAME", "Room name: " + room.getRoom());
-                Log.d("ROOM_ID", "id: " + room.getId());
+                Log.d("ROOM", "name: " + room.getRoom());
+                Log.d("ROOM", "id: " + room.getId());
                 Bundle myBundle = new Bundle();
                 myBundle.putString(ROOM_ID, room.getId());
                 navController.navigate(R.id.roomFragment, myBundle);
@@ -158,7 +158,6 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
      * Method to initialice data to rooms recycler view
      */
     private void dataForRecyclerView() {
-
         ref.child(USER_PATH).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -203,10 +202,7 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
         mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
         tv_name = view.findViewById(R.id.tv_name);
-        bt_add = (Button) view.findViewById(R.id.bt_add);
-
-//        Dialog drop menu
-
+        bt_add = (FloatingActionButton) view.findViewById(R.id.bt_add);
 
     }
 
