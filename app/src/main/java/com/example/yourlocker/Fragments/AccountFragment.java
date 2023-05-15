@@ -60,8 +60,9 @@ public class AccountFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 user =  snapshot.child(uid).getValue(UserDto.class);
-                tvfullName.setText(user.getNameUser());
 
+                tvfullName.setText(user.getNameUser());
+                //cargar imagen de perfil
                 Glide.with(requireContext()).load(user.getProfileUrl()).circleCrop().
                         into(imProfile);
             }
