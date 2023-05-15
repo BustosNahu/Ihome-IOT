@@ -73,16 +73,13 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull RoomAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-//
         Room Room = place.get(position);
         holder.tv_place.setText(Room.getRoom());
 
         switch (Room.getType()){
             case BED_ROOM:  {
                 Drawable drawable = holder.itemView.getResources().getDrawable(R.drawable.room_pic);
-
                 holder.room_background.setImageDrawable(drawable);
-
                 break;
             }
             case LIVING_ROOM:  {
@@ -93,16 +90,15 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
                 holder.room_background.setBackgroundResource(R.drawable.kitchen_pic);
                 break;
             }
-//            case GARAGE:  {
-//                holder.room_background.setBackgroundResource(R.drawable.);
-//                break;
-//            }
-//            case HOME_OUTSIDE:  {
-//                holder.room_background.setBackgroundResource(R.drawable.);
-//                break;
-//            }
+            case GARAGE:  {
+                holder.room_background.setBackgroundResource(R.drawable.garage_pic);
+                break;
+            }
+            case HOME_OUTSIDE:  {
+                holder.room_background.setBackgroundResource(R.drawable.outside_pic);
+                break;
+            }
             default: {
-//                holder.room_background.setBackgroundColor();
                 Drawable drawable = holder.itemView.getResources().getDrawable(R.drawable.living_pic);
 
                 holder.room_background.setImageDrawable(drawable);
@@ -114,8 +110,6 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     itemClickListener.onItemClick(place.get(position));
-
-
                 }
             });
 
