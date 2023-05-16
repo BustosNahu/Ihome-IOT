@@ -109,7 +109,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/list"
                     android:layout_width="match_parent"
-                    android:layout_height="400dp"
+                    android:layout_height="415dp"
                     android:layout_alignParentBottom="true"
                     android:orientation="horizontal"
                     tools:listitem="@layout/list_items_place" />
