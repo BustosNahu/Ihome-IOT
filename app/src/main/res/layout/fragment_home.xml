@@ -34,7 +34,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="30dp"
                     android:text="27º"
-                    android:textColor="@color/black"
+                    android:textColor="#2C2C2C"
                     android:textSize="50sp" />
 
                 <LinearLayout
@@ -84,7 +84,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="name here"
-                        android:textColor="@color/black"
+                        android:textColor="#2C2C2C"
                         android:textSize="28sp"
                         android:textStyle="bold" />
 
@@ -92,7 +92,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Welcome to your smart home"
-                        android:textColor="#74000000"
+                        android:textColor="@color/ihomeColor"
                         android:textSize="12sp" />
                 </LinearLayout>
 
@@ -103,7 +103,7 @@
                     android:layout_marginLeft="30dp"
                     android:layout_marginBottom="12dp"
                     android:text="All Rooms"
-                    android:textColor="@color/black"
+                    android:textColor="#2C2C2C"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 

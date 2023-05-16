@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Activities.WelcomeActivity"
     android:orientation="vertical"
-    android:background="#FF9800">
+    android:background="@color/ihomeColor">
 
 
                 <LinearLayout
@@ -53,7 +53,7 @@
                     android:textAllCaps="false"
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    android:textColor="#FF9800"
+                    android:textColor="@color/ihomeColor"
                     android:fontFamily="@font/robotomedium"
                     />
 

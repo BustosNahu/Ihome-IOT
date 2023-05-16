@@ -117,7 +117,7 @@
             android:layout_height="52dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/bt_background"
-            android:text="Confirmar"
+            android:text="Confirm"
             android:textAllCaps="false"
             android:textColor="#FFFF"
             android:textSize="24sp"

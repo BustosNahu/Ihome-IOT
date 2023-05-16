@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Activities.HomeActivity"
-    android:id="@+id/layout">
+    android:id="@+id/layout"
+    android:background="#fff7f0"
+    >
 
 
     <fragment
