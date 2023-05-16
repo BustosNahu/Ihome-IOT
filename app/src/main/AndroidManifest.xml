@@ -35,7 +35,8 @@
         <activity
             android:name=".Activities.HomeActivity"
             android:exported="false"
-            android:theme="@style/Theme.home">
+            android:theme="@style/Theme.home"
+            android:windowSoftInputMode="adjustPan">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

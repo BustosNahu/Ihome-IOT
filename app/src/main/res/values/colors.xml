@@ -11,5 +11,6 @@
     <color name="gray">#B3B2AE</color>
     <color name="ihomeColor">#FF9800</color>
     <color name = "dark_grey">#4A4A4A</color>
+    <color name = "text_hint_color">#A3A3A3</color>
 
 </resources>

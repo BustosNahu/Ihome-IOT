@@ -214,8 +214,6 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
 
-
-
 //        inflate new_room_custom_dialog view
         view = getLayoutInflater().inflate(R.layout.new_room_dialog, null);
         EditText et_new_room = (EditText) view.findViewById(R.id.et_new_room);
