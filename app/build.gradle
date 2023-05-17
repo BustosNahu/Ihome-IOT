@@ -18,12 +18,15 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+
+
     }
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
         }
     }
     compileOptions {
@@ -32,6 +35,7 @@ android {
     }
     buildFeatures {
         viewBinding true
+
     }
 }
 
@@ -44,6 +48,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.5.1'
     //material desing
     implementation 'com.google.android.material:material:1.9.0'
+    implementation 'com.eightbitlab:blurview:1.6.1'
+
 
 
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'

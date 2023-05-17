@@ -12,7 +12,7 @@
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">#ed8900</item>
+        <item name="android:statusBarColor">@color/ihomeColor</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -31,7 +31,7 @@
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">#ed8900</item>
+        <item name="android:statusBarColor">@color/ihomeColor</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>

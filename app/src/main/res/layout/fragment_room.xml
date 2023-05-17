@@ -3,17 +3,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.RoomFragment">
+    xmlns:blurkit="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.RoomFragment"
+    android:theme="@style/AlertDialog"
+    >
 
-
-    <TextView
-        android:id="@+id/tv_name"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="HOLA"
-        android:textSize="40sp"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        />
+        android:layout_height="match_parent"
+        android:background="@drawable/living_pic"
+        >
+
+
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="HOLA"
+            android:textSize="40sp" />
+
+        <eightbitlab.com.blurview.BlurView
+            android:layout_width="match_parent"
+            android:layout_height="444dp"
+            android:background="@drawable/top_radious_background"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+
+            >
+
+
+        </eightbitlab.com.blurview.BlurView>
+
+
+    </RelativeLayout>
 
 </FrameLayout>
