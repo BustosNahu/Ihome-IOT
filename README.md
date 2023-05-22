@@ -11,7 +11,7 @@ El mismo posee desarrollo de hardware y modelado 3d de las cerraduras IOT.
 ![Logo](https://firebasestorage.googleapis.com/v0/b/lockeriot-9fac5.appspot.com/o/images%2Fihome%20screen.png?alt=media&token=4d9dfca2-fc7d-420a-b1d7-29141c8a4d88)
 
 
-## Tecnologies used
+## Tecnologias usadas
 
 -   APLICACION MOVIL ANDROID 
 En cuanto al desarrollo de la App mobile, la misma esta siendo desarrollada en idioma nativo Java, mediante la IDE de Android Studio. Estando solo disponible para dispotivios Android.
@@ -52,13 +52,11 @@ Micaela Natasha Bustos
 
 [![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://github.com/BustosNahu)
 
-[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/nahuel-alexander-bustos/)
+[![linkedin]([https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/nahuel-alexander-bustos/](https://www.linkedin.com/in/micaela-natasha-bustos/))
 
 - Desarrollador de la aplicacion web del microcontrolador:
 
 Joaquin Cervio
 
-[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://github.com/BustosNahu)
-
-[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/nahuel-alexander-bustos/)
+[![linkedin]([https://www.linkedin.com/search/results/all/?fetchDeterministicClustersOnly=true&heroEntityKey=urn%3Ali%3Afsd_profile%3AACoAAEIuX9gBwerce9UIeRJsqe0mxxwcu2bbKjI&keywords=joaquin%20cervio&origin=RICH_QUERY_SUGGESTION&position=1&searchId=8550a3cf-7de8-4373-affb-4754fcdc8879&sid=g~A](https://www.linkedin.com/in/joaquin-cervio-2a0a2326b/))
 
