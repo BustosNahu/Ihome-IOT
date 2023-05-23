@@ -3,6 +3,7 @@ package com.example.yourlocker.Fragments;
 import static com.example.yourlocker.Utils.Utils.ROOM_ID;
 import static com.example.yourlocker.Utils.Utils.USER_PATH;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -32,10 +33,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.yourlocker.Activities.RoomActivity;
 import com.example.yourlocker.Adapter.RoomAdapter;
+import com.example.yourlocker.Interface.JsonWheaterApiService;
 import com.example.yourlocker.Model.Room;
-import com.example.yourlocker.Model.StringList;
+
 import com.example.yourlocker.Model.UserDto;
+import com.example.yourlocker.Model.WeatherTemperature;
 import com.example.yourlocker.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
@@ -50,6 +54,11 @@ import com.google.firebase.firestore.auth.User;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListener {
 
@@ -76,6 +85,8 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
 
     private ArrayAdapter<String> itemAdapter;
 
+    private TextView tx_temperature;
+
 
     private RecyclerView recyclerView;
 
@@ -91,6 +102,11 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
 
     private String roomType;
 
+    private String apiUrl = "https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}",
+            apiKey = "cd112c72caa5a8db7501d5fdbac1fcba" ;
+
+    private String cityName = "Buenos Aires";
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -105,6 +121,7 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
 
         init();
         nameDataBaseRequest();
+        getTemperature();
 
         return view;
     }////////////////////////////////////////////////////////////////////////////////FIN DEL ONCREATEVIEW/////////////////////////////////////////////////////////////////////////////
@@ -145,13 +162,45 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
                 Log.d("ROOM", "id: " + room.getId());
                 Bundle myBundle = new Bundle();
                 myBundle.putString(ROOM_ID, room.getId());
-                navController.navigate(R.id.roomFragment, myBundle);
+//                navController.navigate(R.id.roomFragment, myBundle);
+                Intent i = new Intent(requireActivity(), RoomActivity.class);
+                startActivity(i);
             }
         });
 
     }
 
 
+    private void getTemperature(){
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.openweathermap.org/")
+                .build();
+        JsonWheaterApiService service = retrofit.create(JsonWheaterApiService.class);
+        Call<WeatherTemperature> call = service.getTemperature(cityName, apiKey);
+        call.enqueue(new Callback<WeatherTemperature>() {
+            @Override
+            public void onResponse(Call<WeatherTemperature> call, Response<WeatherTemperature> response) {
+                try {
+                    if(response.code() == 200){
+                        WeatherTemperature weatherTemperature = response.body();
+                        assert weatherTemperature != null;
+
+                        Log.d("TEMPERATURE_REQUEST", "temp: " + weatherTemperature.main);
+                    }
+
+                }catch (Exception e){
+                    Toast.makeText(requireContext(), "Error en la base de datos", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<WeatherTemperature> call, Throwable t) {
+
+            }
+        });
+
+    }
 
 
     /**
@@ -203,6 +252,7 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
         uid = mAuth.getCurrentUser().getUid();
         tv_name = view.findViewById(R.id.tv_name);
         bt_add = (FloatingActionButton) view.findViewById(R.id.bt_add);
+        tx_temperature = view.findViewById(R.id.tx_temperature);
 
     }
 
