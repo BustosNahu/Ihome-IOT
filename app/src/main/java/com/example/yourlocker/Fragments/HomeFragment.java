@@ -6,7 +6,6 @@ import static com.example.yourlocker.Utils.Utils.USER_PATH;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,9 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,10 +32,9 @@ import android.widget.Toast;
 
 import com.example.yourlocker.Activities.RoomActivity;
 import com.example.yourlocker.Adapter.RoomAdapter;
-import com.example.yourlocker.Interface.JsonWheaterApiService;
+import com.example.yourlocker.Interface.JsonWeatherApiService;
 import com.example.yourlocker.Model.Room;
 
-import com.example.yourlocker.Model.UserDto;
 import com.example.yourlocker.Model.WeatherTemperature;
 import com.example.yourlocker.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -49,7 +45,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.auth.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -176,30 +171,35 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.openweathermap.org/")
                 .build();
-        JsonWheaterApiService service = retrofit.create(JsonWheaterApiService.class);
-        Call<WeatherTemperature> call = service.getTemperature(cityName, apiKey);
-        call.enqueue(new Callback<WeatherTemperature>() {
-            @Override
-            public void onResponse(Call<WeatherTemperature> call, Response<WeatherTemperature> response) {
-                try {
-                    if(response.code() == 200){
+        JsonWeatherApiService weatherApiService = retrofit.create(JsonWeatherApiService.class);
+
+        try {
+            Call<WeatherTemperature> call = weatherApiService.getTemperature(cityName, apiKey);
+            call.enqueue(new Callback<WeatherTemperature>() {
+                @Override
+                public void onResponse(Call<WeatherTemperature> call, Response<WeatherTemperature> response) {
+                    if (response.isSuccessful()) {
                         WeatherTemperature weatherTemperature = response.body();
-                        assert weatherTemperature != null;
-
-                        Log.d("TEMPERATURE_REQUEST", "temp: " + weatherTemperature.main);
+                        if (weatherTemperature != null) {
+                            // Aquí puedes realizar las acciones necesarias con los datos del clima
+                            Log.d("TEMPERATURE_REQUEST", "Temperature: " + weatherApiService.getTemperature(cityName, apiKey));
+                        }
+                    } else {
+                        // Aquí puedes manejar la respuesta no exitosa
+                        Log.e("TEMPERATURE_REQUEST", "Response not successful. Code: " + response.code());
                     }
-
-                }catch (Exception e){
-                    Toast.makeText(requireContext(), "Error en la base de datos", Toast.LENGTH_SHORT).show();
                 }
-            }
 
-            @Override
-            public void onFailure(Call<WeatherTemperature> call, Throwable t) {
-
-            }
-        });
-
+                @Override
+                public void onFailure(Call<WeatherTemperature> call, Throwable t) {
+                    // Aquí puedes manejar el fallo de la solicitud
+                    Log.e("TEMPERATURE_REQUEST", "Request failed. Error: " + t.getMessage());
+                }
+            });
+        } catch (Exception e) {
+            // Aquí puedes manejar cualquier excepción que se produzca
+            Log.e("TEMPERATURE_REQUEST", "Exception: " + e.getMessage());
+        }
     }
 
 

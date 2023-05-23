@@ -6,9 +6,9 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public interface JsonWheaterApiService {
+public interface JsonWeatherApiService {
 
     @GET("data/2.5/weather?")
     Call<WeatherTemperature> getTemperature(@Query("q") String cityName,
-                                            @Query("appId") String appId);
+                                            @Query("appid") String apikey);
 }
