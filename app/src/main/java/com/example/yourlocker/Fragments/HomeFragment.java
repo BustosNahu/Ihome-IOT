@@ -35,7 +35,7 @@ import com.example.yourlocker.Adapter.RoomAdapter;
 import com.example.yourlocker.Interface.JsonWeatherApiService;
 import com.example.yourlocker.Model.Room;
 
-import com.example.yourlocker.Model.WeatherTemperature;
+import com.example.yourlocker.Model.ApiWeather.WeatherTemperature;
 import com.example.yourlocker.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
@@ -54,6 +54,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListener {
 
@@ -170,11 +171,11 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.openweathermap.org/")
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
         JsonWeatherApiService weatherApiService = retrofit.create(JsonWeatherApiService.class);
-
         try {
-            Call<WeatherTemperature> call = weatherApiService.getTemperature(cityName, apiKey);
+            Call<WeatherTemperature> call = weatherApiService.getTemperature(cityName, apiKey, "metric");
             call.enqueue(new Callback<WeatherTemperature>() {
                 @Override
                 public void onResponse(Call<WeatherTemperature> call, Response<WeatherTemperature> response) {
@@ -182,7 +183,11 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
                         WeatherTemperature weatherTemperature = response.body();
                         if (weatherTemperature != null) {
                             // Aquí puedes realizar las acciones necesarias con los datos del clima
-                            Log.d("TEMPERATURE_REQUEST", "Temperature: " + weatherApiService.getTemperature(cityName, apiKey));
+                            Log.d("TEMPERATURE_REQUEST", "Temperature: " + weatherTemperature.main.temp);
+                            double temp = weatherTemperature.main.temp;
+                            int tempInt = (int) temp;
+                            tx_temperature.setText(tempInt + "º");
+
                         }
                     } else {
                         // Aquí puedes manejar la respuesta no exitosa

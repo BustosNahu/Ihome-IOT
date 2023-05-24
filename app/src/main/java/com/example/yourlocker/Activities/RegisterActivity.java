@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yourlocker.Activities.HomeActivity;
+import com.example.yourlocker.Model.Room;
 import com.example.yourlocker.Model.UserDto;
 import com.example.yourlocker.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,6 +25,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
 
