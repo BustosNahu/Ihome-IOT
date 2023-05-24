@@ -27,6 +27,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -67,13 +69,13 @@ public class RegisterActivity extends AppCompatActivity {
                 String numberAdressUser = et_NumberAdress.getText().toString().trim();
                 String floorDptoUser = et_floor_dpto.getText().toString().trim();
                 String profileUrl = "";
-                String rooms = "";
+                HashMap<String, Room> rooms = new HashMap<String, Room>();
 
                 if(nameUser.isEmpty() && emailUser.isEmpty() && passUser.isEmpty() && confirmPassUser.isEmpty()){
                     Toast.makeText(RegisterActivity.this, "Complete fields",Toast.LENGTH_SHORT).show();
                 }else if (passUser.equals(confirmPassUser)){
                     //funcion para registro
-                    registerUser(nameUser,emailUser , passUser, addressUser, numberAdressUser, rooms, profileUrl);
+                    registerUser(nameUser,emailUser , passUser, addressUser, numberAdressUser,  rooms, profileUrl);
                 }
 
             }
@@ -88,7 +90,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void registerUser(String nameUser, String emailUser, String passUser, String addressUser, String numberAdressUser,  String rooms, String profileUrl ) {
+    private void registerUser(String nameUser, String emailUser, String passUser, String addressUser, String numberAdressUser,  HashMap<String, Room> rooms, String profileUrl ) {
         Log.d("USER_DETAILS", "name: " + nameUser);
         Log.d("USER_DETAILS", "email: " + emailUser);
         Log.d("USER_DETAILS", "password: " + passUser);
@@ -109,7 +111,7 @@ public class RegisterActivity extends AppCompatActivity {
                     FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
                     //Ingresar datos en firebase realtime database
-                    UserDto writeUserDetails = new UserDto(nameUser, emailUser, passUser, addressUser, numberAdressUser, rooms, profileUrl);
+                    UserDto writeUserDetails = new UserDto(nameUser, emailUser, passUser, addressUser, numberAdressUser,  rooms, profileUrl);
 
                     //Extrayendo referencia de usuario de la base de datos "Usuarios registrados"
                     DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference(USER_PATH);

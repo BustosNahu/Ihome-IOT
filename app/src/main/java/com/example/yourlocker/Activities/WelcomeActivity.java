@@ -10,6 +10,7 @@ import android.widget.Button;
 import com.example.yourlocker.Activities.LoginActivity;
 import com.example.yourlocker.R;
 import com.example.yourlocker.Activities.RegisterActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -22,6 +23,11 @@ public class WelcomeActivity extends AppCompatActivity {
 
         btn_login_screen = findViewById(R.id.btn_login_screen);
         btn_singin_screen = findViewById(R.id.btn_singin_screen);
+
+        if (FirebaseAuth.getInstance().getCurrentUser() != null){
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+        }
 
         btn_login_screen.setOnClickListener(new View.OnClickListener() {
             @Override

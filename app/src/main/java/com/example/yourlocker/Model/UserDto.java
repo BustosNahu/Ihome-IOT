@@ -2,13 +2,14 @@ package com.example.yourlocker.Model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class UserDto {
     public String nameUser, emailUser, passUser, addressUser, numberAdressUser, profileUrl;
-    public ArrayList<Room> rooms;
+    public HashMap<String,Room> rooms = new HashMap<String, Room>();;
     private UserDto() {}
-    public UserDto(String nameUser, String emailUser, String passUser, String addressUser, String numberAdressUser, ArrayList<Room> rooms, String profileUrl) {
+    public UserDto(String nameUser, String emailUser, String passUser, String addressUser, String numberAdressUser, HashMap<String, Room> rooms, String profileUrl) {
         this.nameUser = nameUser;
         this.emailUser = emailUser;
         this.passUser = passUser;
@@ -18,11 +19,11 @@ public class UserDto {
         this.profileUrl = profileUrl;
     }
 
-    public ArrayList<Room> getRooms() {
+    public HashMap<String, Room> getRooms() {
         return rooms;
     }
 
-    public void setRooms(ArrayList<Room> rooms) {
+    public void setRooms(HashMap<String, Room> rooms) {
         this.rooms = rooms;
     }
 
