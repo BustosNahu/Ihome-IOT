@@ -19,7 +19,7 @@
     <string name="room">ex:Garage,etc</string>
     <string name="room_name_tx">ex:Alex room</string>
     <string-array name="room_type">
-<!--        drop down items-->
+        <!--        drop down items-->
         <item>Bed Room</item>
         <item>Living Room</item>
         <item>Kitchen</item>
@@ -27,4 +27,6 @@
         <item>Home Outside</item>
 
     </string-array>
+    <string name="title_activity_lol">lol</string>
+    <string name="title_activity_rooms">RoomsActivity</string>
 </resources>
