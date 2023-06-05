@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yourlocker.Activities.RoomActivity;
+import com.example.yourlocker.Activities.RoomsActivity;
 import com.example.yourlocker.Adapter.RoomAdapter;
 import com.example.yourlocker.Interface.JsonWeatherApiService;
 import com.example.yourlocker.Model.Room;
@@ -159,7 +160,7 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
                 Bundle myBundle = new Bundle();
                 myBundle.putString(ROOM_ID, room.getId());
 //                navController.navigate(R.id.roomFragment, myBundle);
-                Intent i = new Intent(requireActivity(), RoomActivity.class);
+                Intent i = new Intent(requireActivity(), RoomsActivity.class);
                 startActivity(i);
             }
         });
