@@ -157,10 +157,8 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
 
                 Log.d("ROOM", "name: " + room.getRoom());
                 Log.d("ROOM", "id: " + room.getId());
-                Bundle myBundle = new Bundle();
-                myBundle.putString(ROOM_ID, room.getId());
-//                navController.navigate(R.id.roomFragment, myBundle);
                 Intent i = new Intent(requireActivity(), RoomsActivity.class);
+                i.putExtra(ROOM_ID, room.getId());
                 startActivity(i);
             }
         });

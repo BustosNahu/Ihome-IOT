@@ -93,6 +93,7 @@ android {
         implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
         implementation platform('com.google.firebase:firebase-bom:31.1.1')
         implementation 'com.google.firebase:firebase-auth'
+        implementation 'com.google.firebase:firebase-auth-ktx'
         implementation "androidx.cardview:cardview:1.0.0"
         implementation "androidx.recyclerview:recyclerview:1.2.1"
         implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
@@ -104,7 +105,8 @@ android {
         testImplementation 'junit:junit:4.13.2'
         androidTestImplementation 'androidx.test.ext:junit:1.1.4'
         androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
-        implementation platform('com.google.firebase:firebase-bom:31.1.1')
+        implementation platform('com.google.firebase:firebase-bom:32.0.0')
+        implementation 'com.google.firebase:firebase-analytics-ktx'
         implementation('com.google.firebase:firebase-firestore:24.4.1')
         implementation "androidx.drawerlayout:drawerlayout:1.1.1"
 

@@ -1,6 +1,7 @@
 package com.example.yourlocker.Activities
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -43,6 +44,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -50,22 +52,36 @@ import com.example.yourlocker.Activities.ui.theme.YourLockerTheme
 import com.example.yourlocker.R
 import com.example.yourlocker.RoomUi.RoomData
 import com.example.yourlocker.RoomUi.RoomScreen
+import com.example.yourlocker.Screen
+import com.example.yourlocker.Utils.Utils.ROOM_ID
 import com.example.yourlocker.compose_navigation.SetupNavGraph
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.ktx.Firebase
 
 
 class RoomsActivity : ComponentActivity() {
     lateinit var navController: NavHostController
 
+    var room_id: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            YourLockerTheme {
-                // A surface container using the 'background' color from the theme
-                val navController = rememberNavController()
-                SetupNavGraph(navController = navController)
 
 
+        val myBundle = intent.extras
+
+        if (myBundle != null) {
+            room_id = myBundle.getString(ROOM_ID).toString()
+            setContent {
+                YourLockerTheme {
+                    // A surface container using the 'background' color from the theme
+                    val navController = rememberNavController()
+                    SetupNavGraph(navController = navController, Screen.Rooms.route, room_id)
+
+
+                }
             }
         }
+
     }
 }
