@@ -8,12 +8,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -57,7 +59,7 @@ private lateinit var firebaseDatabase: FirebaseDatabase
 private lateinit var databaseReference: DatabaseReference
 private lateinit var auth: FirebaseAuth
 
-private var name: String? = null
+private var room_name: String? = null
 
 data class RoomData(val roomType: String, val roomId: String)
 
@@ -68,7 +70,8 @@ fun RoomScreen(
     navController: NavController
 ) {
     val mContext = LocalContext.current
-    dataRequest(mContext)
+    var roomId = data.roomId.toString()
+    dataRequest(mContext, roomId)
 
     Box(
         Modifier
@@ -107,9 +110,10 @@ fun RoomScreen(
                         .padding(top = 30.dp)
                 ) {
                     Text(
-                        text = "$name",
+                        text = "$room_name",
                         modifier = Modifier
-                            .padding(PaddingValues(27.dp, 0.dp, 150.dp, 0.dp)),
+                            .padding(PaddingValues(27.dp, 0.dp, 0.dp, 0.dp))
+                            .width(280.dp),
                         style = TextStyle(
                             color = Color.White,
                             fontSize = 30.sp,
@@ -191,7 +195,7 @@ fun DefaultPreview() {
     )
 }
 
-fun dataRequest(context: android.content.Context): String? {
+fun dataRequest(context: android.content.Context, roomId: String): String? {
 
     firebaseDatabase = FirebaseDatabase.getInstance()
     databaseReference = firebaseDatabase.getReference(USER_PATH)
@@ -205,7 +209,8 @@ fun dataRequest(context: android.content.Context): String? {
         override fun onDataChange(snapshot: DataSnapshot) {
             try {
                 Log.d("DATABASE", "uID: " + uId.toString())
-                name = snapshot.child(uId).child("nameUser").child("rooms").child(roomId)
+                room_name = snapshot.child(uId).child("rooms").child(roomId)
+                    .child("type").getValue().toString()
 
             } catch (e: Exception) {
                 Log.d("DATABASE", "ERROR")
@@ -220,8 +225,7 @@ fun dataRequest(context: android.content.Context): String? {
 
     })
 
-    return name
-
+    return room_name
 }
     
 
