@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -197,6 +198,14 @@ fun RoomScreen(
                     color = Color.White,
                     thickness = 1.dp
                 )
+                
+                LazyRow( Modifier.fillMaxWidth()
+                    .height(200.dp)
+                    .padding(top = 62.dp, start = 15.dp)
+
+                ){
+
+                }
             }
 
         }
@@ -263,6 +272,7 @@ fun dataRequest(context: android.content.Context, roomId: String): String? {
     })
 
     return room_name
+    
 }
     
 
