@@ -7,7 +7,7 @@ import java.util.List;
 
 public class UserDto {
     public String nameUser, emailUser, passUser, addressUser, numberAdressUser, profileUrl;
-    public HashMap<String,Room> rooms = new HashMap<String, Room>();;
+    public HashMap<String,Room> rooms = new HashMap<String, Room>();
     private UserDto() {}
     public UserDto(String nameUser, String emailUser, String passUser, String addressUser, String numberAdressUser, HashMap<String, Room> rooms, String profileUrl) {
         this.nameUser = nameUser;

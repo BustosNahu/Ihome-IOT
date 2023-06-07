@@ -34,6 +34,7 @@ import com.example.yourlocker.Activities.RoomActivity;
 import com.example.yourlocker.Activities.RoomsActivity;
 import com.example.yourlocker.Adapter.RoomAdapter;
 import com.example.yourlocker.Interface.JsonWeatherApiService;
+import com.example.yourlocker.Model.Device;
 import com.example.yourlocker.Model.Room;
 
 import com.example.yourlocker.Model.ApiWeather.WeatherTemperature;
@@ -48,6 +49,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -223,9 +225,12 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
                         String room = dataSnapshot.child("room").getValue(String.class);
                         String roomId = dataSnapshot.child("id").getValue(String.class);
                         String roomType = dataSnapshot.child("type").getValue(String.class);
+                        HashMap<String, Device> devices = new HashMap<String, Device>();
+
+
                         Log.e("Room_ROOMS", room);
 
-                        Room Room = new Room(room, roomId, roomType);
+                        Room Room = new Room(room, roomId, roomType, devices);
                         Log.e("RoomName", Room.toString());
                         placeList.add(Room);
                     }
@@ -298,10 +303,11 @@ public class HomeFragment extends Fragment implements RoomAdapter.ItemClickListe
 
                 String roomName = et_new_room.getText().toString().trim();
                 String roomId = UUID.randomUUID().toString().trim();
+                HashMap<String, Device> device = new HashMap<String, Device>();
 
                 if(!roomName.isEmpty() && !roomType.isEmpty()){
 
-                    Room myRoom = new Room(roomName , roomId, roomType);
+                    Room myRoom = new Room(roomName , roomId, roomType, device);
 
 
                     ref.child(USER_PATH).child(uid).child("rooms")

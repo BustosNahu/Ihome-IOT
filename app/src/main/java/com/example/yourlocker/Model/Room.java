@@ -1,17 +1,31 @@
 package com.example.yourlocker.Model;
 
+import java.util.HashMap;
+
 public class Room {
 
     private String room = "";
     private String id = "";
     private String type = "";
-    public Room(String room, String id, String type) {
+
+    public HashMap<String,Device> devices = new HashMap<String, Device>();
+
+    public Room(String room, String id, String type, HashMap<String, Device> devices) {
         this.room = room;
         this.id = id;
         this.type = type;
+        this.devices = devices;
 
     }
     public Room(){}
+
+    public HashMap<String, Device> getDevices() {
+        return devices;
+    }
+
+    public void setDevices(HashMap<String, Device> devices) {
+        this.devices = devices;
+    }
 
     public String getType() {
         return type;

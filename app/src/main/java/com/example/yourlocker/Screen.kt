@@ -14,4 +14,10 @@ sealed class Screen(val route : String){
             return this.route.replace(oldValue =" {$ROOM_ID}", newValue = id.toString())
         }
     }
+
+    object AddDevicesScreen: Screen(route = "add_device_screen/{$ROOM_ID}"){
+        fun passIdRoomToAddDevice(id: String): String{
+            return this.route.replace(oldValue =" {$ROOM_ID}", newValue = id.toString())
+        }
+    }
 }

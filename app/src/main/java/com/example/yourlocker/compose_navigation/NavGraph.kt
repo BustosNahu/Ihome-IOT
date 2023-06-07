@@ -8,9 +8,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.yourlocker.ROOM_ID
+import com.example.yourlocker.RoomUi.AddDevicesScreen
 import com.example.yourlocker.RoomUi.DeviceScreen
 import com.example.yourlocker.RoomUi.RoomData
 import com.example.yourlocker.RoomUi.RoomScreen
+import com.example.yourlocker.RoomUi.id_device
 import com.example.yourlocker.Screen
 import kotlin.math.log
 
@@ -42,6 +44,13 @@ fun SetupNavGraph(
             DeviceScreen(navController = navController)
         }
 
+        composable(route = Screen.AddDevicesScreen.route,
+            arguments = listOf(navArgument(ROOM_ID){
+                type = NavType.StringType
+            })
+        ){
+            AddDevicesScreen(navController = navController, room_id)
+        }
 
     }
 

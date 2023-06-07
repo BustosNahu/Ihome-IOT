@@ -76,8 +76,8 @@ class RoomsActivity : ComponentActivity() {
                 YourLockerTheme {
                     // A surface container using the 'background' color from the theme
                     val navController = rememberNavController()
-                    SetupNavGraph(navController = navController, Screen.Rooms.route, room_id)
 
+                    SetupNavGraph(navController = navController, Screen.Rooms.route, room_id)
 
                 }
             }
