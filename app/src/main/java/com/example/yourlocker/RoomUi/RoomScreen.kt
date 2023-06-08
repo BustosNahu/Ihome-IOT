@@ -75,7 +75,7 @@ private lateinit var auth: FirebaseAuth
 private var room_type: String? = null
 private var type: String? = null
 private var background: String? = null
-private var deviceList: List<Device>? = null
+private var deviceList: MutableList<Device> = emptyList()
 
 
 
@@ -241,7 +241,7 @@ fun RoomScreen(
 
                 ){
                     items(deviceList){ item ->
-                        Devices(type = "", name = "")
+                        Devices(item)
                     }
 
                 }
@@ -256,7 +256,7 @@ fun RoomScreen(
 
 
 @Composable
-fun Devices(type: String, name: String) {
+fun Devices(device : Device) {
     IconButton(onClick = {
         Log.d("tu locker", "NAME: ")
     },
@@ -276,13 +276,13 @@ fun Devices(type: String, name: String) {
                  horizontalAlignment = Alignment.CenterHorizontally){
                 Icon(
                     painter = painterResource(id =
-                    if(type == LOCKER){R.drawable.ic_locker}
+                    if(device.type == LOCKER){R.drawable.ic_locker}
                     else{R.drawable.ic_camera}
                     ),
                     contentDescription = "Locker button",
                     tint = Color.White
                 )
-                Text(text = name,
+                Text(text = device.name,
                     Modifier.padding(top = 14.dp),
                     style = TextStyle(
                         fontSize = 15.sp,
@@ -338,6 +338,7 @@ fun dataRequest(context: android.content.Context, roomId: String): Device {
                     var device_type = postSnapshot.child("device_type").getValue().toString()
 
                     var device = Device(device_id,device_type,device_name,device_state)
+                    deviceList.add(device)
 //                    deviceList = listOf(device)
                 }
 
