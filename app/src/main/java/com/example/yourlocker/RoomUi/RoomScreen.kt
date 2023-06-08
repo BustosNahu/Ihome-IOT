@@ -4,6 +4,8 @@ import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -16,6 +18,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -25,29 +28,35 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.yourlocker.Model.Device
 import com.example.yourlocker.R
 import com.example.yourlocker.Screen
 import com.example.yourlocker.Utils.Utils.BED_ROOM
+import com.example.yourlocker.Utils.Utils.CAMERA
 import com.example.yourlocker.Utils.Utils.GARAGE
 import com.example.yourlocker.Utils.Utils.HOME_OUTSIDE
 import com.example.yourlocker.Utils.Utils.KITCHEN
 import com.example.yourlocker.Utils.Utils.LIVING_ROOM
+import com.example.yourlocker.Utils.Utils.LOCKER
 import com.example.yourlocker.Utils.Utils.USER_PATH
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -63,9 +72,12 @@ private lateinit var firebaseDatabase: FirebaseDatabase
 private lateinit var databaseReference: DatabaseReference
 private lateinit var auth: FirebaseAuth
 
-private var room_name: String? = null
+private var room_type: String? = null
 private var type: String? = null
 private var background: String? = null
+private var deviceList: List<Device>? = null
+
+
 
 data class RoomData(val roomType: String, val roomId: String)
 
@@ -88,7 +100,16 @@ fun RoomScreen(
             .fillMaxWidth()
     ) {
             Image(
-                painter = painterResource(id = R.drawable.outside_pic),
+                painter = painterResource(id =
+                when(room_type){
+                    GARAGE-> R.drawable.garage_pic
+                    LIVING_ROOM -> R.drawable.living_pic
+                    HOME_OUTSIDE -> R.drawable.outside_pic
+                    BED_ROOM -> R.drawable.room_pic
+                    KITCHEN -> R.drawable.kitchen_pic
+                    else -> {R.drawable.kitchen_pic}
+                } as Int
+                ),
                 contentDescription = "Background",
                 contentScale = ContentScale.FillHeight,
                 modifier = Modifier.fillMaxSize()
@@ -99,7 +120,7 @@ fun RoomScreen(
             modifier = Modifier
 
                 .fillMaxWidth()
-                .height(400.dp)
+                .height(450.dp)
                 .align(Alignment.BottomCenter),
             colors = CardDefaults.cardColors(
                 containerColor = Color.Black.copy(alpha = 0.7f),
@@ -130,7 +151,7 @@ fun RoomScreen(
                                 fontStyle = FontStyle.Normal
                             )
                         )
-                        Text(text = "to your $room_name",
+                        Text(text = "to your $room_type",
                             modifier = Modifier
                                 .padding(top = 0.dp, start = 27.dp),
                             style = TextStyle(
@@ -198,12 +219,30 @@ fun RoomScreen(
                     color = Color.White,
                     thickness = 1.dp
                 )
+
+
+                Text(text = "Devices",
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(top = 14.dp, start = 27.dp),
+                    style = TextStyle(
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 24.sp,
+                        color = Color.White
+
+                    ))
                 
-                LazyRow( Modifier.fillMaxWidth()
-                    .height(200.dp)
-                    .padding(top = 62.dp, start = 15.dp)
+                LazyRow(
+                    Modifier
+                        .fillMaxWidth()
+                        .height(200.dp)
+                        .padding(top = 20.dp, start = 15.dp, bottom = 10.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
 
                 ){
+                    items(deviceList){ item ->
+                        Devices(type = "", name = "")
+                    }
 
                 }
             }
@@ -214,17 +253,49 @@ fun RoomScreen(
 
 }
 
-//fun backgroundImageReturn(room_name: String?) {
-//    when(room_name){
-//        BED_ROOM ->
-//        LIVING_ROOM ->
-//        KITCHEN ->
-//        GARAGE ->
-//        HOME_OUTSIDE ->
-//    }
 
 
-//}
+@Composable
+fun Devices(type: String, name: String) {
+    IconButton(onClick = {
+        Log.d("tu locker", "NAME: ")
+    },
+        Modifier
+            .height(174.dp)
+            .width(139.dp)
+            .background(Color.DarkGray, RoundedCornerShape(50.dp))
+            .padding(5.dp)
+
+
+    ) {
+        Column(Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center ,
+            horizontalAlignment = Alignment.CenterHorizontally)
+             {
+            Column (
+                 horizontalAlignment = Alignment.CenterHorizontally){
+                Icon(
+                    painter = painterResource(id =
+                    if(type == LOCKER){R.drawable.ic_locker}
+                    else{R.drawable.ic_camera}
+                    ),
+                    contentDescription = "Locker button",
+                    tint = Color.White
+                )
+                Text(text = name,
+                    Modifier.padding(top = 14.dp),
+                    style = TextStyle(
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Light,
+                        color = Color.White
+                    ))
+
+            }
+
+        }
+
+    }
+}
 
 @Preview(
     showBackground = true,
@@ -240,8 +311,8 @@ fun DefaultPreview() {
 
 
 
-fun dataRequest(context: android.content.Context, roomId: String): String? {
-
+fun dataRequest(context: android.content.Context, roomId: String): Device {
+    var device: Device? = null
     firebaseDatabase = FirebaseDatabase.getInstance()
     databaseReference = firebaseDatabase.getReference(USER_PATH)
     auth = Firebase.auth
@@ -251,11 +322,24 @@ fun dataRequest(context: android.content.Context, roomId: String): String? {
 
 
     databaseReference.addValueEventListener(object : ValueEventListener {
+
         override fun onDataChange(snapshot: DataSnapshot) {
             try {
                 Log.d("DATABASE", "uID: " + uId.toString())
-                room_name = snapshot.child(uId).child("rooms").child(roomId)
+                room_type = snapshot.child(uId).child("rooms").child(roomId)
                     .child("type").getValue().toString()
+
+                for (postSnapshot in snapshot.child(uId).child("rooms")
+                    .child(roomId).child("devices").children)
+                {
+                    var device_id = postSnapshot.child("device_id").getValue().toString()
+                    var device_name = postSnapshot.child("device_name").getValue().toString()
+                    var device_state: Boolean = false
+                    var device_type = postSnapshot.child("device_type").getValue().toString()
+
+                    var device = Device(device_id,device_type,device_name,device_state)
+//                    deviceList = listOf(device)
+                }
 
 
             } catch (e: Exception) {
@@ -271,8 +355,7 @@ fun dataRequest(context: android.content.Context, roomId: String): String? {
 
     })
 
-    return room_name
-    
+
 }
     
 

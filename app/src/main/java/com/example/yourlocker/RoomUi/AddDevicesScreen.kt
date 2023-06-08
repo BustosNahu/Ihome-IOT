@@ -37,7 +37,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.yourlocker.Model.Device
 import com.example.yourlocker.R
 import com.example.yourlocker.Utils.Utils
-import com.example.yourlocker.components_ui.CustomTextField
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
