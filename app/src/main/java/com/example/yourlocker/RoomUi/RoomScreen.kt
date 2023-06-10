@@ -32,6 +32,9 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -45,8 +48,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.yourlocker.Activities.ui.theme.DarkBlue
+import com.example.yourlocker.Activities.ui.theme.DarkGrey
 import com.example.yourlocker.Model.Device
 import com.example.yourlocker.R
 import com.example.yourlocker.Screen
@@ -75,22 +81,33 @@ private lateinit var auth: FirebaseAuth
 private var room_type: String? = null
 private var type: String? = null
 private var background: String? = null
-private var deviceList: MutableList<Device> = emptyList()
+private var deviceList: MutableList<Device> = emptyList<Device>().toMutableList()
 
+//class RoomViewmodel : ViewModel(){
+//
+//}
 
-
+//MVP
 data class RoomData(val roomType: String, val roomId: String)
 
 
 @Composable
 fun RoomScreen(
     data: RoomData,
-    navController: NavController
+//    vm : RoomViewmodel,
+    navController: NavController,
 ) {
     val mContext = LocalContext.current
     var roomId = data.roomId.toString()
 
-    dataRequest(mContext, roomId)
+    val name = remember {
+        mutableStateOf("")
+    }
+
+    val list = remember {
+        dataRequest(mContext, roomId)
+    }
+
 //    backgroundImageReturn(room_name)
 
     Box(
@@ -108,7 +125,7 @@ fun RoomScreen(
                     BED_ROOM -> R.drawable.room_pic
                     KITCHEN -> R.drawable.kitchen_pic
                     else -> {R.drawable.kitchen_pic}
-                } as Int
+                }
                 ),
                 contentDescription = "Background",
                 contentScale = ContentScale.FillHeight,
@@ -231,16 +248,18 @@ fun RoomScreen(
                         color = Color.White
 
                     ))
-                
+
+                LaunchedEffect(deviceList){
+                    Log.d("nahuGay", deviceList.toString())
+                }
                 LazyRow(
                     Modifier
                         .fillMaxWidth()
                         .height(200.dp)
                         .padding(top = 20.dp, start = 15.dp, bottom = 10.dp),
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
-
                 ){
-                    items(deviceList){ item ->
+                    items(list){ item ->
                         Devices(item)
                     }
 
@@ -256,18 +275,14 @@ fun RoomScreen(
 
 
 @Composable
-fun Devices(device : Device) {
+fun Devices(device: Device) {
     IconButton(onClick = {
-        Log.d("tu locker", "NAME: ")
-    },
-        Modifier
-            .height(174.dp)
-            .width(139.dp)
-            .background(Color.DarkGray, RoundedCornerShape(50.dp))
-            .padding(5.dp)
-
-
-    ) {
+        Log.d("tu locker", "NAME: " + device.device_name)
+    }, Modifier
+        .height(174.dp)
+        .width(139.dp)
+        .background(Color.DarkGray, RoundedCornerShape(50.dp))
+        .padding(5.dp)) {
         Column(Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center ,
             horizontalAlignment = Alignment.CenterHorizontally)
@@ -276,19 +291,21 @@ fun Devices(device : Device) {
                  horizontalAlignment = Alignment.CenterHorizontally){
                 Icon(
                     painter = painterResource(id =
-                    if(device.type == LOCKER){R.drawable.ic_locker}
+                    if(type == LOCKER){R.drawable.ic_locker}
                     else{R.drawable.ic_camera}
                     ),
                     contentDescription = "Locker button",
                     tint = Color.White
                 )
-                Text(text = device.name,
-                    Modifier.padding(top = 14.dp),
-                    style = TextStyle(
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.Light,
-                        color = Color.White
-                    ))
+                device.device_name?.let {
+                    Text(text = it,
+                        Modifier.padding(top = 14.dp),
+                        style = TextStyle(
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Light,
+                            color = DarkGrey
+                        ))
+                }
 
             }
 
@@ -311,8 +328,7 @@ fun DefaultPreview() {
 
 
 
-fun dataRequest(context: android.content.Context, roomId: String): Device {
-    var device: Device? = null
+fun dataRequest(context: android.content.Context, roomId: String): MutableList<Device> {
     firebaseDatabase = FirebaseDatabase.getInstance()
     databaseReference = firebaseDatabase.getReference(USER_PATH)
     auth = Firebase.auth
@@ -324,22 +340,23 @@ fun dataRequest(context: android.content.Context, roomId: String): Device {
     databaseReference.addValueEventListener(object : ValueEventListener {
 
         override fun onDataChange(snapshot: DataSnapshot) {
+            deviceList.clear()
             try {
-                Log.d("DATABASE", "uID: " + uId.toString())
+                Log.d("DATABASE", "uID: " + uId)
                 room_type = snapshot.child(uId).child("rooms").child(roomId)
-                    .child("type").getValue().toString()
+                    .child("type").value.toString()
 
                 for (postSnapshot in snapshot.child(uId).child("rooms")
-                    .child(roomId).child("devices").children)
-                {
-                    var device_id = postSnapshot.child("device_id").getValue().toString()
-                    var device_name = postSnapshot.child("device_name").getValue().toString()
-                    var device_state: Boolean = false
-                    var device_type = postSnapshot.child("device_type").getValue().toString()
+                    .child(roomId).child("devices").children) {
+                    val device_id = postSnapshot.child("device_id").value.toString()
+                    val device_name = postSnapshot.child("device_name").value.toString()
+                    val device_state =  postSnapshot.child("device_state").value as Boolean
+                    val device_type = postSnapshot.child("device_type").value.toString()
 
-                    var device = Device(device_id,device_type,device_name,device_state)
+                    val device = Device(device_id, device_type, device_name, device_state)
+                    Log.d("DeviceNahuGya", device.device_name.toString())
                     deviceList.add(device)
-//                    deviceList = listOf(device)
+                    Log.d("DeviceNahuGya", deviceList.toString())
                 }
 
 
@@ -355,8 +372,7 @@ fun dataRequest(context: android.content.Context, roomId: String): Device {
         }
 
     })
-
-
+    return deviceList
 }
     
 
