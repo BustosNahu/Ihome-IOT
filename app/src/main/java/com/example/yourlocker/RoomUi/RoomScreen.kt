@@ -80,7 +80,7 @@ private lateinit var auth: FirebaseAuth
 
 private var room_type: String? = null
 private var type: String? = null
-private var background: String? = null
+private var lastDeviceState: Boolean? = null
 private var deviceList: MutableList<Device> = emptyList<Device>().toMutableList()
 
 //class RoomViewmodel : ViewModel(){
@@ -116,21 +116,21 @@ fun RoomScreen(
             .fillMaxHeight()
             .fillMaxWidth()
     ) {
-            Image(
-                painter = painterResource(id =
-                when(room_type){
-                    GARAGE-> R.drawable.garage_pic
-                    LIVING_ROOM -> R.drawable.living_pic
-                    HOME_OUTSIDE -> R.drawable.outside_pic
-                    BED_ROOM -> R.drawable.room_pic
-                    KITCHEN -> R.drawable.kitchen_pic
-                    else -> {R.drawable.kitchen_pic}
-                }
-                ),
-                contentDescription = "Background",
-                contentScale = ContentScale.FillHeight,
-                modifier = Modifier.fillMaxSize()
-            )
+        Image(
+            painter = painterResource(id =
+            when(room_type){
+                GARAGE-> R.drawable.garage_pic
+                LIVING_ROOM -> R.drawable.living_pic
+                HOME_OUTSIDE -> R.drawable.outside_pic
+                BED_ROOM -> R.drawable.room_pic
+                KITCHEN -> R.drawable.kitchen_pic
+                else -> {R.drawable.kitchen_pic}
+            }
+            ),
+            contentDescription = "Background",
+            contentScale = ContentScale.FillHeight,
+            modifier = Modifier.fillMaxSize()
+        )
 
         Card(
 
@@ -195,9 +195,9 @@ fun RoomScreen(
 //                                    navController.navigate(route = Screen.Devices.passIdDevices(
 //                                        id = 12
 //                                    ))
-                                          navController.navigate(route = Screen.AddDevicesScreen.passIdRoomToAddDevice(
-                                              id = roomId
-                                          ))
+                                    navController.navigate(route = Screen.AddDevicesScreen.passIdRoomToAddDevice(
+                                        id = roomId
+                                    ))
 
                                 },
                                 modifier = Modifier
@@ -260,7 +260,7 @@ fun RoomScreen(
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ){
                     items(list){ item ->
-                        Devices(item)
+                        Devices(item, roomId)
                     }
 
                 }
@@ -275,36 +275,60 @@ fun RoomScreen(
 
 
 @Composable
-fun Devices(device: Device) {
-    IconButton(onClick = {
-        Log.d("tu locker", "NAME: " + device.device_name)
-    }, Modifier
-        .height(174.dp)
-        .width(139.dp)
-        .background(Color.DarkGray, RoundedCornerShape(50.dp))
-        .padding(5.dp)) {
-        Column(Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center ,
-            horizontalAlignment = Alignment.CenterHorizontally)
-             {
-            Column (
-                 horizontalAlignment = Alignment.CenterHorizontally){
+fun Devices(device: Device, roomId: String) {
+    var lastState: Boolean? = remember {
+        saveDeviceData(device.device_id.toString(), roomId)
+    }
+    IconButton(
+        onClick =
+        {
+            if (lastState == true) {
+                changeLockerState(roomId, device.device_id.toString(), false)
+                lastState = false
+
+            } else {
+                changeLockerState(roomId, device.device_id.toString(), true)
+                lastState = true
+            }
+        }, Modifier
+            .height(174.dp)
+            .width(139.dp)
+            .background(
+                Color.DarkGray, RoundedCornerShape(50.dp)
+            )
+            .padding(5.dp)
+    ) {
+        Column(
+            Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        )
+        {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 Icon(
-                    painter = painterResource(id =
-                    if(type == LOCKER){R.drawable.ic_locker}
-                    else{R.drawable.ic_camera}
+                    painter = painterResource(
+                        id =
+                        if (device.device_type == LOCKER) {
+                            R.drawable.ic_locker
+                        } else {
+                            R.drawable.ic_camera
+                        }
                     ),
                     contentDescription = "Locker button",
                     tint = Color.White
                 )
                 device.device_name?.let {
-                    Text(text = it,
+                    Text(
+                        text = it,
                         Modifier.padding(top = 14.dp),
                         style = TextStyle(
                             fontSize = 15.sp,
                             fontWeight = FontWeight.Light,
-                            color = DarkGrey
-                        ))
+                            color = Color.White
+                        )
+                    )
                 }
 
             }
@@ -312,6 +336,45 @@ fun Devices(device: Device) {
         }
 
     }
+}
+
+fun saveDeviceData(deviceId: String, roomId: String): Boolean? {
+
+    firebaseDatabase = FirebaseDatabase.getInstance()
+    databaseReference = firebaseDatabase.getReference(USER_PATH)
+    auth = Firebase.auth
+
+    val user = FirebaseAuth.getInstance().currentUser!!
+    var uId = user.uid
+
+    databaseReference.addValueEventListener(object : ValueEventListener {
+        override fun onDataChange(snapshot: DataSnapshot) {
+            lastDeviceState = snapshot.child(uId).child("rooms")
+                .child(roomId).child("devices").child(deviceId.toString())
+                .child("device_state").value as Boolean
+        }
+
+        override fun onCancelled(error: DatabaseError) {
+            TODO("Not yet implemented")
+        }
+
+    })
+    return lastDeviceState
+}
+
+fun changeLockerState(roomId: String, device_id: String?, actualState: Boolean?) {
+    firebaseDatabase = FirebaseDatabase.getInstance()
+    databaseReference = firebaseDatabase.getReference(USER_PATH)
+    auth = Firebase.auth
+
+
+    val user = FirebaseAuth.getInstance().currentUser!!
+    var uId = user.uid
+
+    databaseReference.child(uId).child("rooms")
+        .child(roomId).child("devices").child(device_id.toString())
+        .child("device_state").setValue(actualState)
+
 }
 
 @Preview(
@@ -325,7 +388,6 @@ fun DefaultPreview() {
         navController = rememberNavController()
     )
 }
-
 
 
 fun dataRequest(context: android.content.Context, roomId: String): MutableList<Device> {
@@ -350,7 +412,7 @@ fun dataRequest(context: android.content.Context, roomId: String): MutableList<D
                     .child(roomId).child("devices").children) {
                     val device_id = postSnapshot.child("device_id").value.toString()
                     val device_name = postSnapshot.child("device_name").value.toString()
-                    val device_state =  postSnapshot.child("device_state").value as Boolean
+                    val device_state = postSnapshot.child("device_state").value as Boolean
                     val device_type = postSnapshot.child("device_type").value.toString()
 
                     val device = Device(device_id, device_type, device_name, device_state)
@@ -374,5 +436,5 @@ fun dataRequest(context: android.content.Context, roomId: String): MutableList<D
     })
     return deviceList
 }
-    
+
 

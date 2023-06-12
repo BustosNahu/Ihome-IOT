@@ -14,7 +14,7 @@ public class Utils {
     public final static String HOME_OUTSIDE = "Home Outside";
 
     //DEVICES TYPES
-    public final static String LOCKER = "locker";
+    public final static String LOCKER = "Locker";
     public final static String CAMERA = "camera";
 
 
